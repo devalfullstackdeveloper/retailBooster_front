@@ -1,0 +1,328 @@
+        <section class="breadcrumb_area">
+            <img class="breadcrumb_shap" src="assets/img/breadcrumb/banner_bg.png" alt="">
+            <div class="container">
+                <div class="breadcrumb_content text-center">
+                    <h1 class="f_p f_700 f_size_50 w_color l_height50 mb_20">Buy On Credit</h1>
+                </div>
+            </div>
+        </section>
+        <section class="faq_area bg_color sec_pad">
+            <div class="container">
+
+               <div class="row" *ngIf="display_block=='store'">
+                    <div class="col-lg-12">
+                        <h3 class="f_p f_size_22 f_500 t_color3 mb_20">Top Products</h3>
+                               
+                        
+                            <div class="row">
+                              <div class="col-lg-4" *ngFor="let product of top_product_list">
+                                <div class="store_list" (click)="selectProduct(product)">
+                                  <div class="store_img">
+                                    <img src="{{product.productImage}}" class="logo" />
+                                  </div>
+                                  <div class="store_content">
+                                    <h2>{{product.productName}}</h2>
+                                    <p>
+                                      <span>{{product.description}}</span><br/>
+                                      <span><strong>{{product.unitprice | currency : 'NGN' : 'symbol-narrow'}}</strong></span>
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>   
+                           
+                            </div>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="display_block=='store'">
+                    <div class="col-lg-12">
+                        <h3 class="f_p f_size_22 f_500 t_color3 mb_20">Stores</h3>
+                               
+                        
+                            <div class="row">
+                              <div class="col-lg-4" *ngFor="let store of store_list">
+                                <div class="store_list" (click)="selectStore(store._id)">
+                                  <div class="store_img">
+                                    <img src="{{store.storeImage}}" class="logo" />
+                                  </div>
+                                  <div class="store_content">
+                                    <h2>{{store.storeName}}</h2>
+                                    <p class="mb0" *ngIf="store.url!=''"><a href="{{store.url}}" target="_blank">{{store.url}}</a></p>
+                                    <p class="mb0" *ngIf="store.phoneNo!=''"> <a href="tel:{{store.phoneNo}}">{{store.phoneNo}}</a></p>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                           
+                            </div>
+                    </div>
+                </div>
+
+
+                <div class="row" *ngIf="display_block=='product'">
+                    <div class="col-lg-12">
+                        <h3 class="f_p f_size_22 f_500 t_color3 mb_20">Products</h3>
+                               
+                        
+                            <div class="row">
+                              <div class="col-lg-4" *ngFor="let product of store_product_list">
+                                <div class="store_list" (click)="selectProduct(product)">
+                                  <div class="store_img">
+                                    <img src="{{product.productImage}}" class="logo" />
+                                  </div>
+                                  <div class="store_content">
+                                    <h2>{{product.productName}}</h2>
+                                    <p>
+                                      <span>{{product.description}}</span><br/>
+                                      <span><strong>{{product.unitprice | currency : 'NGN' : 'symbol-narrow'}}</strong></span>
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>   
+                           
+                            </div>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="display_block=='product_detail'">
+                    <div class="col-lg-12">
+                        <h3 class="f_p f_size_22 f_500 t_color3 mb_20">Buy Now, Pay Leter. <button type="button" (click)="backToProducts()" class="btn_three pull-right mt0">Back</button></h3>
+                               
+                        
+                            <div class="row">
+                              <div class="col-lg-4">
+                                <img src="{{product.productImage}}" class="productimg" />
+                              </div>
+                              <div class="col-lg-8">
+                                  <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group text_box">
+                                            Item Name
+                                            <input type="text" readonly="readonly" id="name" name="name" value="{{product.productName}}" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group text_box">
+                                            Store Name
+                                            <input type="text" readonly="readonly" value="{{product.Storeinfo.storeName}}" name="storename" id="storename" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group text_box">
+                                            Store Address
+                                            <input type="text" readonly="readonly" value="{{product.Storeinfo.address}}" id="address" name="address" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group text_box">
+                                            URL
+                                            <input type="text" readonly="readonly" value="{{product.Storeinfo.url}}" id="url" name="url" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group text_box">
+                                            Contact Number
+                                            <input type="text" id="phoneNo" readonly="readonly" value="{{product.Storeinfo.phoneNo}}" name="phoneNo" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group text_box">
+                                            Quantity
+                                            <input type="text" [(ngModel)]="product.qty"  id="qty" name="qty" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group text_box">
+                                            Unit Price
+                                            <input type="text" readonly="readonly" value="{{product.unitprice}}" id="subject" name="unitprice" placeholder="" >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group text_box">
+                                            Total Amount
+                                            <input type="text" [(ngModel)]="product.unitprice*product.qty" readonly="readonly" id="subject" name="total" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                      <button type="button" (click)="salaryHistor()" class="btn_three">Buy</button>
+                                    </div>
+                                </div>
+                              </div>
+
+                           
+                            </div>
+                    </div>
+                </div>
+
+
+                <div class="row" *ngIf="display_block=='salary_history'">
+                    <div class="col-lg-12">
+                        <h3 class="f_p f_size_22 f_500 t_color3 mb_20">Buy Now, Pay Leter. <button type="button" (click)="backToProducts()" class="btn_three pull-right mt0">Back</button></h3>
+                               
+                        
+                            <div class="row">
+                              <div class="col-lg-4">
+                                <img src="{{product.productImage}}" class="productimg" />
+                              </div>
+                              <div class="col-lg-8">
+                                  <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group text_box">
+                                            <h2>{{product.productName}}</h2>
+                                            <p>{{product.Storeinfo.storeName}}</p>
+                                            <p>Quantity: {{product.qty}}</p>
+                                            <p>{{product.Storeinfo.url}}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group text_box">
+                                            Employee ID
+                                            <input type="text"  id="employeeId" name="employeeId" placeholder="" >
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group text_box">
+                                            Proof Of ID : <label><strong>3 Documents Uploaded</strong></label>
+                                            
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group text_box">
+                                            Salary History
+
+                                            <select class="form-control"><option>2019</option><option>2018</option></select>
+                                          
+                                        </div>
+                                         <table class="table">
+                                          <tr>
+                                            <th>Month</th>
+                                            <th>Amount</th>
+                                          </tr>
+                                          <tr>
+                                            <td>October</td>
+                                            <td>₦30000.00</td>
+                                          </tr>
+                                          <tr>
+                                            <td>September</td>
+                                            <td>₦30000.00</td>
+                                          </tr>
+                                          <tr>
+                                            <td>August</td>
+                                            <td>₦30000.00</td>
+                                          </tr>
+                                          <tr>
+                                            <td>July</td>
+                                            <td>₦30000.00</td>
+                                          </tr>
+                                        </table>
+                                    </div>
+                                    
+                                    <div class="col-lg-12">
+                                      <button type="submit" (click)="salarySubmit()" class="btn_three">Next</button>
+                                    </div>
+                                </div>
+                              </div>
+
+                           
+                            </div>
+                    </div>
+                </div>
+
+
+                <div class="row" *ngIf="display_block=='final_submit'">
+                    <div class="col-lg-12">
+                        <h3 class="f_p f_size_22 f_500 t_color3 mb_20">Buy Now, Pay Leter. <button type="button" (click)="backToProducts()" class="btn_three pull-right mt0">Back</button></h3>
+                               
+                        
+                            <div class="row">
+                              <div class="col-lg-4">
+                                <img src="{{product.productImage}}" class="productimg" />
+                              </div>
+                              <div class="col-lg-8">
+                                  <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="form-group text_box">
+                                            <h2>{{product.productName}}</h2>
+                                            <p>{{product.Storeinfo.storeName}}</p>
+                                            <p>Quantity: {{product.qty}}</p>
+                                            <p>{{product.Storeinfo.url}}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group text_box">
+                                            Delivery Address
+                                            <textarea rows="2" id="employeeId" name="employeeId" placeholder="" ></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group text_box">
+                                            <strong>Loan</strong>
+                                            
+                                        </div>
+
+                                         <table class="table">
+                                          <tr>
+                                            <td>Shipping Fee</td>
+                                            <td>₦30000.00</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Subtotal</td>
+                                            <td>₦30000.00</td>
+                                          </tr>
+                                          <tr>
+                                            <td>VAT</td>
+                                            <td>₦30000.00</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Admin Fee</td>
+                                            <td>₦30000.00</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Total Cost</td>
+                                            <td>₦30000.00</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Repayment Period(month)</td>
+                                            <td>
+                                              <select class="form-control">
+                                                <option>2</option>
+                                                <option>4</option>
+                                                <option>6</option>
+                                                <option>8</option>
+                                              </select>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td>Offer Amount</td>
+                                            <td>₦30000.00</td>
+                                          </tr>
+                                          <tr>
+                                            <td>Repayment Schedule</td>
+                                            <td><button class="btn_three mt0">View</button></td>
+                                          </tr>
+                                          <tr>
+                                            <td>Balance to be paid</td>
+                                            <td>₦30000.00</td>
+                                          </tr>
+                                        </table>
+                                    </div>
+                                    
+                                    <div class="col-lg-12">
+                                      <button type="submit" (click)="payNow()" class="btn_three">Paynow</button>
+                                    </div>
+                                </div>
+                              </div>
+
+                           
+                            </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
