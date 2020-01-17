@@ -10,17 +10,28 @@
             <div class="container">
                 <div class="row" *ngIf="display_block=='store'">
                     <div class="col-lg-12">
-                        <h3 class="f_p f_size_22 f_500 t_color3 mb_20 float-left">2019
+                        <!-- <h3 class="f_p f_size_22 f_500 t_color3 mb_20 float-left">2019
 
                         </h3>
-                        <button type="submit" class="btn_three mt_0 mb_20 float-right">All Transactions</button>
+                        <button type="submit" class="btn_three mt_0 mb_20 float-right">All Transactions</button> -->
                         <table class="table">
-                          <tr>
+                          <tr class="text-center">
                             <th>Item</th>                            
                             <th>Paid</th>
                             <th>Amount</th>
+                            <th>Action</th>
                           </tr>
-                          <tr>
+                          <tr class="text-center" *ngFor="let transaction of transaction_list;let i = index">
+                            <td>{{transaction.productDetails.productName}}</td>                            
+                            <td>{{transaction.creditedBalance | currency:'NGN':'symbol-narrow':'4.2-2'}}</td>
+                            <td>{{transaction.totalAmount | currency:'NGN':'symbol-narrow':'4.2-2'}}</td>
+                            <td>
+                              <div class="text-center">
+                                <button class="btn btn-success" type="button" (click)="getTransaction(transaction)" data-toggle="modal" data-target="#TransactionModal">View</button>
+                              </div>
+                            </td>
+                          </tr>
+                          <!-- <tr>
                             <td>Item 1</td>                            
                             <td>₦ 200</td>
                             <td>₦ 2800</td>
@@ -35,7 +46,7 @@
                             <td>Item 3</td>
                             <td>₦ 200</td>
                             <td>₦ 2800</td>
-                          </tr>
+                          </tr> -->
                         </table>
                         
                         
@@ -45,3 +56,42 @@
 
             </div>
         </section>
+
+        <div class="modal fade" id="TransactionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <h4 class="modal-title" id="exampleModalLabel"><b>Transactions</b></h4>
+
+
+                      <button type="button" #closeApplicationModal class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <table class="table">
+                        <tr class="text-center">
+                          <th>Amount</th>
+                          <th>Status</th>
+                          <th>Status Code</th>
+                          <th>RRR</th>
+                          <th>Transaction Ref</th>
+                          <th>Last Status Updated Time</th>
+                        </tr>
+
+                        <tr class="text-center" *ngFor="let data of transaction_data">
+                          <td>{{data.amount | currency:'NGN':'symbol-narrow':'4.2-2'}}</td>
+                          <td>{{data.status}}</td>
+                          <td>{{data.statuscode}}</td>
+                          <td>{{data.RRR}}</td>
+                          <td>{{data.transactionRef}}</td>
+                          <td>{{data.lastStatusUpdateTime | date: 'mediumDate'}}</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+            

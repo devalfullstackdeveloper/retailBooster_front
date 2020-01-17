@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../../../services/api.service'
 
 @Component({
   selector: 'app-transaction',
@@ -7,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TransactionComponent implements OnInit {
   display_block = "store";
-  constructor() { }
+  transaction_list = [];
+  transaction_data = [];
+  constructor(private apiService:ApiService) { }
 
   ngOnInit() {
     this.display_block = "store";
+    this.getTransactionsList();
   }
 
 
@@ -20,5 +24,25 @@ export class TransactionComponent implements OnInit {
 
   selectProduct() {
     this.display_block = "product_detail";
+  }
+
+  getTransactionsList(){
+    this.apiService.getUserRepayment()
+    .subscribe(data => {
+      if(data.status){
+        this.transaction_list = data.data
+        console.log("Transaction-List---",this.transaction_list);
+      }else{
+        alert(data.message)
+      }
+    },
+    error => {
+      alert(error.error.message);
+    })
+  }
+
+  getTransaction(data){
+    console.log("transaction-data---",data);
+    this.transaction_data = data.transactionHistory;
   }
 }
