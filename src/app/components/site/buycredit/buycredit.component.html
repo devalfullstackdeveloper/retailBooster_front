@@ -144,7 +144,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12">
-                                      <button type="button" (click)="salaryHistor()" class="btn_three">Buy</button>
+                                      <button type="button" (click)="addProduct()" class="btn_three">Buy</button>
                                     </div>
                                 </div>
                               </div>
@@ -175,16 +175,39 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-12">
+                                     <div class="col-lg-12">
                                         <div class="form-group text_box">
-                                            Employee ID
-                                            <input type="text"  id="employeeId" name="employeeId" placeholder="" >
+                                            Where do yoy work?
+                                            <select class="form-control" id="whereWork" [(ngModel)]="product_order.whereWork" name="whereWork" >
+                                              <option value="{{val.companyName}}" *ngFor="let val of company_list; let i = index">{{val.companyName}}</option>
+                                            </select>
                                         </div>
                                     </div>
 
                                     <div class="col-lg-12">
                                         <div class="form-group text_box">
-                                            Proof Of ID : <label><strong>3 Documents Uploaded</strong></label>
+                                            Employee ID
+                                            <input type="text"  id="employeeId" [(ngModel)]="product_order.employeeId" name="employeeId" placeholder="" >
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12">
+                                        <div class="form-group text_box">
+                                            Proof Of ID : <label><strong>{{document_list_count}} Documents Uploaded</strong></label>
+
+                                            <table class="table">
+                                          <tr>
+                                            <th>Document</th>
+                                            <th>Status</th>
+                                            <th>View</th>
+                                          </tr>
+                                          <tr *ngFor="let val of document_list; let i = index">
+                                            <td>{{val.name}}</td>
+                                            <td>{{val.status}}</td>
+                                            <td><a href="{{val.document}}" class="btn" target="_BLANK">View</a></td>
+                                          </tr>
+                                         
+                                        </table>
                                             
                                         </div>
                                     </div>

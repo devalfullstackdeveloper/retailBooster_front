@@ -67,6 +67,15 @@ export class ApiService {
         
     }
 
+    getCMS(data) {
+
+            return this.http.post<any>(this.actionUrl+`api/cms/findOne`,data)
+            .pipe(map(res => {
+                return res;
+            }));
+        
+    }
+
     newLoanApp(data) {
 
         
@@ -91,6 +100,27 @@ export class ApiService {
 
     getLGAFromState(state: string) {
         return this.http.post<any>(this.actionUrl+`api/statelga/findOneState`,{state})
+            .pipe(map(res => {
+                return res;
+            }));
+    }
+
+    addProduct(data) {
+        return this.http.post<any>(this.actionUrl+`api/buyProduct/add`,data,this.getHttpOptions() )
+            .pipe(map(res => {
+                return res;
+            }));
+    }
+
+    fileUpload(data) {
+        return this.http.post<any>(this.actionUrl+`api/buyProduct/fileUpload`,data,this.getHttpOptions() )
+            .pipe(map(res => {
+                return res;
+            }));
+    }
+
+    get_company() {
+        return this.http.get<any>(this.actionUrl+`api/company/getCompany` )
             .pipe(map(res => {
                 return res;
             }));
