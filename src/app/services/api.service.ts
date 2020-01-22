@@ -85,6 +85,20 @@ export class ApiService {
         }))
     }
 
+    getUserOrders(){
+        return this.http.get<any>(this.actionUrl+`api/buyProduct/getUserOrders`,this.getHttpOptions())
+        .pipe(map(res => {
+            return res;
+        }))
+    }
+
+    getLoanStatus(data){
+        return this.http.post<any>(this.actionUrl+`api/buyProduct/getLoanStatus`,data,this.getHttpOptions())
+        .pipe(map(res => {
+            return res;
+        }))
+    }
+
     getHttpOptions() {
         let headers_object = new HttpHeaders({
             'Content-Type': 'application/json',
