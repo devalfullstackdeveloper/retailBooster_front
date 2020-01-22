@@ -21,7 +21,8 @@
             "aot": false,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/.htaccess"
             ],
             "styles": [
               "src/assets/css/bootstrap.min.css",
@@ -35,7 +36,7 @@
               "src/assets/vendors/elagent/style.css",
               "src/assets/vendors/scroll/jquery.mCustomScrollbar.min.css",
               "src/assets/css/style.css",
-              "src/assets/css/responsive.css",
+              "src/assets/css/responsive.css"
             ],
             "scripts": [
               "src/assets/js/jquery-3.2.1.min.js",
@@ -53,7 +54,7 @@
               "src/assets/vendors/circle-progress/circle-progress.js",
               "src/assets/vendors/scroll/jquery.mCustomScrollbar.concat.min.js",
               "src/assets/js/plugins.js",
-              "src/assets/js/main.js",
+              "src/assets/js/main.js"
             ]
           },
           "configurations": {

@@ -8,26 +8,34 @@
         </section>
         <section class="faq_area bg_color sec_pad">
             <div class="container">
-                <div class="row" *ngIf="display_block=='store'">
+                <div class="row" *ngIf="display_block=='loan_history'">
                     <div class="col-lg-12">
                         <h3 class="f_p f_size_22 f_500 t_color3 mb_20 float-left">2019
 
                         </h3>
                         <button type="submit" class="btn_three mt_0 mb_20 float-right">All Transactions</button>
                         <table class="table">
-                          <tr>
+                          <tr class="text-center">
                             <th>Item</th>
-                            <th>Disbursed</th>
+                            <th>Disbursed Date</th>
                             <th>Paid</th>
                             <th>Amount</th>
+                            <th>Repayment Amount</th>
+                            <th>Action</th>
                           </tr>
-                          <tr>
-                            <td>Item 1</td>
-                            <td>₦ 3000</td>
-                            <td>₦ 200</td>
-                            <td>₦ 2800</td>
+                          <tr class="text-center" *ngFor="let loan of loan_history;let i = index">
+                            <td>{{loan.productId.productName}}</td>
+                            <td>{{loan.loanDisbursementDate | date: 'mediumDate'}}</td>
+                            <td>{{loan.paidToBankAmount | currency:'NGN':'symbol-narrow':'4.2-2'}}</td>
+                            <td>{{loan.loanAmount | currency:'NGN':'symbol-narrow':'4.2-2'}}</td>
+                            <td>{{loan.repaymentAmount | currency:'NGN':'symbol-narrow':'4.2-2'}}</td>
+                            <td>
+                              <div class="text-center">
+                                <button class="btn btn-success" type="button" (click)="getStatus(loan._id)">Loan Status</button>
+                              </div>
+                            </td>
                           </tr>
-                           <tr>
+                           <!-- <tr>
                             <td>Item 2</td>
                             <td>₦ 3000</td>
                             <td>₦ 200</td>
@@ -38,13 +46,112 @@
                             <td>₦ 3000</td>
                             <td>₦ 200</td>
                             <td>₦ 2800</td>
-                          </tr>
+                          </tr> -->
                         </table>
                         
                         
                     </div>
                 </div>
 
+                <div class="row" *ngIf="display_block=='loan_status'">
+                    <div class="col-lg-12">
+                      <div class="row">
+                        <div class="col-lg-4">
+                          <div class="text-center">
+                            <!-- <div class="store_img"> -->
+                              <img src="{{loan_status.productDetails.productImage}}" alt="" class="productimg" style="height: 215px;"/>
+                              <!-- </div> -->
+                          </div>
+                        </div>
+                        <div class="col-lg-8 text-center">
+                          <!--  -->
+                          <!-- <div class="row">
+                            <div class="col-lg-6">
+                              <label><small>{{loan_status.productDetails.productName}}</small></label>
+                            </div>
+                            <div class="col-lg-6">
+                              {{loan_status.productDetails.unitprice}}
+                            </div>
+                          </div>
 
+                          <div class="row">
+                            <div class="col-lg-6">
+                              Offer
+                            </div>
+                            <div class="col-lg-6">
+                              {{loan_status.offerAmount}}
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-lg-6">
+                              Balamce Paid
+                            </div>
+
+                            <div class="col-lg-6">
+                              {{loan_status.balancePaid}}
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-lg-6">
+                              Repayment
+                            </div>
+
+                            <div class="col-lg-6">
+                              {{loan_status.repaymentAmount}}
+                            </div>
+                          </div> -->
+                          
+                            
+                          <table class="table">
+                            <tr class="text-center">
+                              <td>{{loan_status.productDetails.productName | titlecase}}</td>
+                              <td>{{loan_status.productDetails.unitprice | currency:'NGN':'symbol-narrow':'4.2-2'}}</td>
+                            </tr>
+
+                            <tr class="text-center">
+                              <th>Offer</th>
+                              <td>{{loan_status.offerAmount | currency:'NGN':'symbol-narrow':'4.2-2'}}</td>
+                            </tr>
+
+                            <tr class="text-center">
+                              <th>Balance Paid</th>
+                              <td>{{loan_status.balancePaid | currency:'NGN':'symbol-narrow':'4.2-2'}}</td>
+                            </tr>
+
+                            <tr class="text-center">
+                              <th>Repayment</th>
+                              <td>{{loan_status.repaymentAmount | currency:'NGN':'symbol-narrow':'4.2-2'}}</td>
+                            </tr>
+                          </table>
+
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="progress">
+  
+                          <div class="progress-track"></div>
+                            
+                          <div id="step1" class="progress-step">
+                            Step One
+                          </div>
+                            
+                          <div id="step2" class="progress-step">
+                            Step Two
+                          </div>
+                            
+                          <div id="step3" class="progress-step">
+                            Step Three
+                          </div>
+                            
+                          <div id="step4" class="progress-step">
+                            Complete
+                          </div>
+                        </div>  
+                      </div>
+                    </div>
+                </div>
             </div>
         </section>

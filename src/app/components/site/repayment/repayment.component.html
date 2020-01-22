@@ -10,54 +10,124 @@
             <div class="container">
                 <div class="row" *ngIf="display_block=='store'">
                     <div class="col-lg-12">
+
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <h3 class="f_p f_size_22 f_500 t_color3 mb_20 float-left">Select One Order</h3>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <select class="btn btn-lg btn-secondary dropdown-toggle" name="orderList" id="orderList" (change)="getRepayment($event)">
+                                    <option value="0" selected>Select</option>
+                                    <option *ngFor="let repayment of repayment_list; let i = index" [value]="repayment.orderId">
+                                        {{repayment.productDetails.productName}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <br />
                         
                         <div class="row">
                             <div class="col-lg-3">
-                                <div class="card card-red text-center">
+
+                                <div *ngIf="loanAmount == 0" class="card card-red text-center">
                                     <small>Amount Loaned</small>
                                     <br/>
-                                    ₦ 20000
+                                    <small>₦ N/A</small>
+                                </div>
+
+                                <div *ngIf="loanAmount !== 0" class="card card-red text-center">
+                                    <small>Amount Loaned</small>
+                                    <br/>
+                                    <small>{{loanAmount | currency:'NGN':'symbol-narrow':'4.2-2'}}</small>
                                 </div>
                             </div>
                             <div class="col-lg-3">
-                                <div class="card card-red text-center">
+                                <div *ngIf="tenure == 0" class="card card-red text-center">
                                 <small>Tenure</small>
                                 <br/>
-                                6 Month
+                                <small>N/A Month</small>
                                 </div>
+
+                                <div *ngIf="tenure !== 0" class="card card-red text-center">
+                                    <small>Tenure</small>
+                                    <br/>
+                                    <small>{{tenure}} Month</small>
+                                    </div>
                             </div>
-                            <div class="col-lg-3">
+                            <!-- <div class="col-lg-3">
                                 <div class="card card-red text-center">
                                  <small>Interest</small>
                                 <br/>
                                 15%
                                 </div>
+                            </div> -->
+
+                            <div class="col-lg-3">
+                                <div *ngIf="repayment_amount == 0" class="card card-red text-center">
+                                 <small>Repayment Amount</small>
+                                <br/>
+                                <small>₦ N/A</small>
+                                <!-- 15% -->
+                                </div>
+
+                                <div *ngIf="repayment_amount !== 0" class="card card-red text-center">
+                                    <small>Repayment Amount</small>
+                                   <br/>
+                                   <small>{{repayment_amount | currency:'NGN':'symbol-narrow':'4.2-2'}}</small>
+                                   </div>
                             </div>
 
                             <div class="col-lg-3">
-                                <div class="card card-black text-center">
+                                <div *ngIf="next_pay_date == 0" class="card card-black text-center">
                                  <small>Next Payment In</small>
                                 <br/>
-                                24 Days
+                                <small>N/A Days</small>
                                 </div>
+
+                                <div *ngIf="next_pay_date !== 0" class="card card-black text-center">
+                                    <small>Next Payment In</small>
+                                   <br/>
+                                   <small>{{next_pay_date}} Days</small>
+                                   </div>
                             </div>
                         </div>
 
-                        <h3 class="f_p f_size_22 f_500 t_color3 mb_20 float-left">Transactions
-
-                        </h3>
                         <table class="table">
-                          <tr>
+                          <tr class="text-center">
                             <th>Due Date</th>                            
-                            <th>To Pay</th>
+                            <th>Payment Due</th>
+                            <th>Interest</th>
+                            <th>Principal</th>
                             <th>Balance</th>
                           </tr>
-                          <tr>
-                            <td>30 Nov 2019</td>                            
-                            <td>₦ 200</td>
-                            <td>₦ 2800</td>
+
+                          <tr class="text-center" *ngIf="repayment_data?.length == 0">
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
+                            <td>N/A</td>
                           </tr>
-                           <tr>
+
+                          <tr class="text-center" *ngIf="loanAmount !== 0">
+                            <td></td>                            
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>₦ {{loanAmount}}</td>
+                          </tr>
+
+                          <tr class="text-center" *ngFor="let data of repayment_data">
+                              <td>{{data.DueDate | date: 'mediumDate'}}</td>
+                              <td>{{data.Payment_Due | currency:'NGN':'symbol-narrow':'4.2-2'}}</td>
+                              <td>{{data.Interest | currency:'NGN':'symbol-narrow':'4.2-2'}}</td>
+                              <td>{{data.Principal | currency:'NGN':'symbol-narrow':'4.2-2'}}</td>
+                              <td>{{data.Balance | currency:'NGN':'symbol-narrow':'4.2-2'}}</td>
+                          </tr>
+                           <!-- <tr>
                             <td>30 Nov 2019</td>
                             
                             <td>₦ 200</td>
@@ -67,7 +137,7 @@
                             <td>30 Nov 2019</td>
                             <td>₦ 200</td>
                             <td>₦ 2800</td>
-                          </tr>
+                          </tr> -->
                         </table>
                         
                         
