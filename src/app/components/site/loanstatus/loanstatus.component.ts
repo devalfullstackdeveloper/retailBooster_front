@@ -9,7 +9,7 @@ import { ApiService } from '../../../services/api.service'
 export class LoanstatusComponent implements OnInit {
   display_block = "store";
   loan_history = [];
-  loan_status = {};
+  loan_status: any = {};
   constructor(private apiService:ApiService) { }
 
   ngOnInit() {
