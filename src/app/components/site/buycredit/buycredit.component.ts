@@ -19,11 +19,16 @@ export class BuycreditComponent implements OnInit {
   store_id = "";
   user = <any>{};
   document_list_count = 0;
+  repaymentPeriod = "2";
   document_list = [];
   add_pro_response = {};
-  settings = {};
+  settings:any = {};
+  final_calculation = {"vat":0,"admin_fees":0,"shipping_fees":0,"sub_total":0,"total_cost":0,"offer_amount":0,"balance_paid":0 , "emi":0};
+  final_submit = <any>{};
   company_list = {};
+  repayment_view_data = {};
   orderId = "";
+  delieveryAddress = "";
   product_order = { employeeId: "",whereWork:"" };
   constructor(private apiService: ApiService , private modalService: NgbModal , private router: Router) { }
 
@@ -164,7 +169,11 @@ export class BuycreditComponent implements OnInit {
     .subscribe(
       data => {
         if(data.status) {
+          this.final_submit = data.data;
+          this.calculate_price();
           this.display_block = "final_submit";
+          this.loanCalculator();
+
         }
         else
         {
@@ -177,7 +186,124 @@ export class BuycreditComponent implements OnInit {
       });
     
   }
+
+  loanCalculator() {
+
+      let request = { "orderId" :  this.orderId, "tenorAgreed": this.repaymentPeriod, "loanId":this.user.loanId,"amount":this.final_calculation.total_cost};
+
+    this.apiService.loanCalculator(request)
+    .subscribe(
+      data => {
+        if(data.status) {
+          this.repayment_view_data = data.data;
+          this.loanEligible();
+          
+        }
+        else
+        {
+          alert(data.message);
+        }
+        
+      },
+      error => {
+          alert(error.error.message);
+      });
+
+  }
+
+  loanEligible() {
+
+      let request = { "orderId" :  this.orderId, "tenorAgreed": this.repaymentPeriod };
+
+    this.apiService.loanEligible(request)
+    .subscribe(
+      data => {
+        if(data.status) {
+          if(this.final_calculation.total_cost>=data.eligibilieAmount) {
+            this.final_calculation.balance_paid = this.final_calculation.total_cost - data.eligibilieAmount;
+          }
+          
+
+          this.final_calculation.offer_amount = this.final_calculation.total_cost <data.eligibilieAmount ? this.final_calculation.total_cost : data.eligibilieAmount;
+        }
+        else
+        {
+          alert(data.message);
+        }
+        
+      },
+      error => {
+          alert(error.error.message);
+      });
+
+  }
+
+  calculate_price() {
+    //final_calculation = {"vat":0,"admin_fees":0,"shipping_fees":0,"sub_total":0,"total_cost":0,"offer_amount":0,"balance_paid":0};
+
+    this.final_calculation.shipping_fees = this.settings.productSetting.shippinFee;
+    this.final_calculation.sub_total = this.final_submit.totalAmount+this.final_calculation.shipping_fees;
+
+    this.final_calculation.vat = (this.final_calculation.sub_total*this.settings.productSetting.VAT)/100;
+
+    this.final_calculation.admin_fees = this.settings.productSetting.adminFee;
+
+    this.final_calculation.total_cost = this.final_calculation.sub_total + this.final_calculation.vat + this.final_calculation.admin_fees;
+    
+
+  }
+
+  loanSubmit(isPay) {
+    let request = { "orderId" :  this.orderId, "tenorAgreed": this.repaymentPeriod, "delieveryAddress" : this.delieveryAddress, "shippingFee": this.final_calculation.shipping_fees, "subTotal" : this.final_calculation.sub_total, "loanAmount" : this.final_calculation.total_cost, "eligibileLoan" : this.final_calculation.offer_amount , "emi" : this.final_calculation.emi, "balancePaid" : this.final_calculation.balance_paid, "applicationStatus" : "submitted"};
+
+    this.apiService.loanSubmit(request)
+    .subscribe(
+      data => {
+        if(data.status) {
+          if(isPay=="1") {
+            this.payNow();
+          }
+          else
+          {
+            alert('Loan Application added successfully.')
+          }
+        }
+        else
+        {
+          alert(data.message);
+        }
+        
+      },
+      error => {
+          alert(error.error.message);
+      });
+  }
+
   payNow() {
-    location.href="https://remitademo.net/payment/v1/payment/extended/initialize";
+
+    let payment_request = {
+        "transactionId": "1264551231",
+        "email": "oshadami@specs.com",
+        "amount": 26,
+        "currency": "NGN",
+        "firstName": "Mike",
+        "lastName": "Oshadami",
+        "phoneNumber": "080231456789",
+        "customerid": "oshadami@specs.com",
+        "narration": "payment tst",
+        "extendedData": "null",
+        "returnUrl": "http://localhost:4200/paymentresponse"
+        }
+
+
+    this.apiService.payNow(payment_request)
+    .subscribe(
+      data => {
+        console.log(data);
+        
+      },
+      error => {
+          //alert(error.error.message);
+      });
   }
 }

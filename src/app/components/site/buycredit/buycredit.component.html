@@ -278,7 +278,7 @@
                                     <div class="col-lg-12">
                                         <div class="form-group text_box">
                                             Delivery Address
-                                            <textarea rows="2" id="employeeId" name="employeeId" placeholder="" ></textarea>
+                                            <textarea rows="2" id="delieveryAddress" name="delieveryAddress" [(ngModel)]="delieveryAddress" placeholder="" ></textarea>
                                         </div>
                                     </div>
 
@@ -291,52 +291,53 @@
                                          <table class="table">
                                           <tr>
                                             <td>Shipping Fee</td>
-                                            <td>₦30000.00</td>
+                                            <td>{{final_calculation.shipping_fees | currency : 'NGN' : 'symbol-narrow'}}</td>
                                           </tr>
                                           <tr>
                                             <td>Subtotal</td>
-                                            <td>₦30000.00</td>
+                                            <td>{{final_calculation.sub_total | currency : 'NGN' : 'symbol-narrow'}}</td>
                                           </tr>
                                           <tr>
                                             <td>VAT</td>
-                                            <td>₦30000.00</td>
+                                            <td>{{final_calculation.vat | currency : 'NGN' : 'symbol-narrow'}}</td>
                                           </tr>
                                           <tr>
                                             <td>Admin Fee</td>
-                                            <td>₦30000.00</td>
+                                            <td>{{final_calculation.admin_fees | currency : 'NGN' : 'symbol-narrow'}}</td>
                                           </tr>
                                           <tr>
                                             <td>Total Cost</td>
-                                            <td>₦30000.00</td>
+                                            <td>{{final_calculation.total_cost | currency : 'NGN' : 'symbol-narrow'}}</td>
                                           </tr>
                                           <tr>
                                             <td>Repayment Period(month)</td>
                                             <td>
-                                              <select class="form-control">
-                                                <option>2</option>
-                                                <option>4</option>
-                                                <option>6</option>
-                                                <option>8</option>
+                                              <select class="form-control" name="repaymentPeriod" (change)="loanCalculator()" [(ngModel)]="repaymentPeriod">
+                                                <option value="{{val}}" *ngFor="let val of settings.dropDown.repaymentPeriod; let i = index">{{val}}</option>
                                               </select>
                                             </td>
                                           </tr>
                                           <tr>
                                             <td>Offer Amount</td>
-                                            <td>₦30000.00</td>
+                                            <td>{{final_calculation.offer_amount | currency : 'NGN' : 'symbol-narrow'}}</td>
                                           </tr>
                                           <tr>
                                             <td>Repayment Schedule</td>
-                                            <td><button class="btn_three mt0">View</button></td>
+                                            <td><button class="btn_three mt0" data-toggle="modal" data-target="#myModal">View</button></td>
                                           </tr>
-                                          <tr>
-                                            <td>Balance to be paid</td>
-                                            <td>₦30000.00</td>
+                                          <tr *ngIf="final_calculation.balance_paid>0">
+                                            <td>Balance to be paid<br/><br/><p>The Credit offered is less than the total cost. <br/>Please pay the balance to finalise the credit application</p></td>
+                                            <td>{{final_calculation.balance_paid | currency : 'NGN' : 'symbol-narrow'}}</td>
                                           </tr>
                                         </table>
                                     </div>
                                     
-                                    <div class="col-lg-12">
-                                      <button type="submit" (click)="payNow()" class="btn_three">Paynow</button>
+                                    <div class="col-lg-12" *ngIf="final_calculation.balance_paid>0">
+                                      <button type="submit" (click)="loanSubmit('1')" class="btn_three">Paynow</button>
+                                    </div>
+
+                                    <div class="col-lg-12" *ngIf="final_calculation.balance_paid==0">
+                                      <button type="submit" (click)="loanSubmit('0')" class="btn_three">Submit</button>
                                     </div>
                                 </div>
                               </div>
@@ -349,3 +350,34 @@
 
             </div>
         </section>
+
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        
+<table class="table">
+    <tr>
+      <th>Due Date</th>
+      <th>To Pay</th>
+      <th>Balance</th>
+    </tr>
+    <tr *ngFor="let row of repayment_view_data">
+      <td>{{row.DueDate | date}}</td>
+      <td>{{row.Payment_Due | currency : 'NGN' : 'symbol-narrow'}}</td>
+      <td>{{row.Balance | currency : 'NGN' : 'symbol-narrow'}}</td>
+    </tr>
+  </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>

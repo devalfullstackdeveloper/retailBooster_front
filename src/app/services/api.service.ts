@@ -113,7 +113,13 @@ export class ApiService {
     }
 
     fileUpload(data) {
-        return this.http.post<any>(this.actionUrl+`api/buyProduct/fileUpload`,data,this.getHttpOptions() )
+     const formData = new FormData();
+    
+        formData.append('whereWork', data.whereWork);
+        formData.append('orderId', data.orderId);
+        formData.append('employeeId', data.employeeId);
+
+        return this.http.post<any>(this.actionUrl+`api/buyProduct/fileUpload`,formData )
             .pipe(map(res => {
                 return res;
             }));
@@ -121,6 +127,47 @@ export class ApiService {
 
     get_company() {
         return this.http.get<any>(this.actionUrl+`api/company/getCompany` )
+            .pipe(map(res => {
+                return res;
+            }));
+    }
+
+    loanCalculator(data) {
+        return this.http.post<any>(this.actionUrl+`api/loanapp/LoanCalculator
+`,data,this.getHttpOptions() )
+            .pipe(map(res => {
+                return res;
+            }));
+    }
+
+    loanEligible(data) {
+        return this.http.post<any>(this.actionUrl+`api/loanapp/loanEligible
+`,data,this.getHttpOptions() )
+            .pipe(map(res => {
+                return res;
+            }));
+    }
+
+    loanSubmit(data) {
+        return this.http.post<any>(this.actionUrl+`api/buyProduct/add
+`,data,this.getHttpOptions() )
+            .pipe(map(res => {
+                return res;
+            }));
+    }
+
+    payNow(data) {
+
+        let headers_object = new HttpHeaders({
+           'Content-Type': 'application/json',
+           'publicKey': "dC5vbW9udWJpQGdtYWlsLmNvbXxiM2RjMDhjZDRlZTc5ZDIxZDQwMjdjOWM3MmI5ZWY0ZDA3MTk2YTRkNGRkMjY3NjNkMGZkYzA4MjM1MzI4OWFhODE5OGM4MjM0NTI2YWI2ZjZkYzNhZmQzNDNkZmIzYmUwNTkxODlmMmNkOTkxNmM5MjVhNjYwZjk0ZTk1OTkwNw==",
+        });
+
+        let httpOptions = {
+          headers: headers_object
+        };
+
+        return this.http.post<any>(`https://remitademo.net/payment/v1/payment/extended/initialize`,data,httpOptions )
             .pipe(map(res => {
                 return res;
             }));
