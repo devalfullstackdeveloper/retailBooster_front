@@ -25,6 +25,7 @@
               "src/.htaccess"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/assets/css/bootstrap.min.css",
               "src/assets/vendors/themify-icon/themify-icons.css",
               "src/assets/vendors/simple-line-icon/simple-line-icons.css",
@@ -118,6 +119,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/pink-bluegrey.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -149,6 +151,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "angular-template"
 }

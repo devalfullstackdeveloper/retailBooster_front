@@ -1,0 +1,11 @@
+::ng-deep .mat-vertical-stepper-header{
+    pointer-events: none !important;
+}
+.mat-stepper-horizontal, .mat-stepper-vertical {
+    margin-left: 100px;
+}
+@media (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {
+    .mat-stepper-horizontal, .mat-stepper-vertical {
+        margin-left: 0px;
+    }
+}

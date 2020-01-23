@@ -10,6 +10,11 @@ export class LoanstatusComponent implements OnInit {
   display_block = "store";
   loan_history = [];
   loan_status: any = {};
+  status_details: any = [];
+  isLinear: false;
+  step1: false;
+  step2: true;
+  step3:true;
   constructor(private apiService:ApiService) { }
 
   ngOnInit() {
@@ -52,6 +57,7 @@ export class LoanstatusComponent implements OnInit {
     .subscribe(data => {
       if(data.status){
         this.loan_status = data;
+        this.status_details = data.data;
         this.display_block = "loan_status";
         console.log("Loan-Status---",data)
       }else{
@@ -61,5 +67,9 @@ export class LoanstatusComponent implements OnInit {
     error => {
       alert(error.error.message)
     })
+  }
+
+  goBack(){
+    this.display_block = "loan_history";
   }
 }
