@@ -66,6 +66,8 @@
                                         <label class="f_p text_c f_400">BVN</label>
                                         <input type="text" name="bvn" [(ngModel)]="form.bvn" placeholder="" >
                                         <input type="button" class="verify_btn" value="Verify">
+                                        <input *ngIf="!is_bvn_verified" type="button" class="verify_btn" (click)="bvnVerify()" value="Verify">
+                                        <input [disabled]="is_bvn_verified" *ngIf="is_verified" type="button" class="verify_btn" value="Verified">
                                     </div>
                                     <!--<div class="extra mb_20">
                                         <div class="checkbox remember">

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../../services/api.service'
+import { ApiService } from '../../../services/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-transaction',
@@ -10,11 +11,17 @@ export class TransactionComponent implements OnInit {
   display_block = "store";
   transaction_list = [];
   transaction_data = [];
-  constructor(private apiService:ApiService) { }
+  constructor(private apiService:ApiService, private router: Router) { }
 
   ngOnInit() {
-    this.display_block = "store";
-    this.getTransactionsList();
+    if(!localStorage.getItem("user")) {
+        this.router.navigate(['login']);
+    }
+    else
+    {
+      this.display_block = "store";
+      this.getTransactionsList();
+    }
   }
 
 

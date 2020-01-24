@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../../services/api.service'
+import { ApiService } from '../../../services/api.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-loanstatus',
@@ -15,11 +16,18 @@ export class LoanstatusComponent implements OnInit {
   step1: false;
   step2: true;
   step3:true;
-  constructor(private apiService:ApiService) { }
+  constructor(private apiService:ApiService, private router: Router) { }
 
   ngOnInit() {
-    this.display_block = "loan_history";
-    this.getLoanHistory();
+    if(!localStorage.getItem("user")) {
+        this.router.navigate(['login']);
+    }
+    else
+    {
+      this.display_block = "loan_history";
+      this.getLoanHistory();  
+    }
+    
   }
 
 

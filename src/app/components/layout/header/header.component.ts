@@ -42,4 +42,9 @@ export class HeaderComponent implements OnInit {
 
   }
 
+  logOut() {
+    this.userData = null;
+    localStorage.clear();
+  }
+
 }

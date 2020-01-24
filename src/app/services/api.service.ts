@@ -195,5 +195,12 @@ export class ApiService {
             }));
     }
 
+    bvnVerify(data) {
+        return this.http.post<any>(this.actionUrl+`api/loanapp/bvnVerify`,data,this.getHttpOptions() )
+            .pipe(map(res => {
+                return res;
+            }));
+    }
+
 
 }

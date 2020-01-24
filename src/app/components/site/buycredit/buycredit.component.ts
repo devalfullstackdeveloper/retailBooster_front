@@ -33,23 +33,29 @@ export class BuycreditComponent implements OnInit {
   constructor(private apiService: ApiService , private modalService: NgbModal , private router: Router) { }
 
   ngOnInit() {
-    this.display_block = "store";
-    this.getStore();
-    this.getProducts();
-    this.getCompany();
+    if(!localStorage.getItem("user")) {
+        this.router.navigate(['login']);
+    }
+    else
+    {
+      this.display_block = "store";
+      this.getStore();
+      this.getProducts();
+      this.getCompany();
 
-    this.user = JSON.parse(localStorage.getItem('user'));
+      this.user = JSON.parse(localStorage.getItem('user'));
 
-    this.apiService.getSettingValues().pipe()
-      .subscribe(
-        data => {
+      this.apiService.getSettingValues().pipe()
+        .subscribe(
+          data => {
 
-         this.settings = data.data;
-         
-        },
-        error => {
-         
-        });
+           this.settings = data.data;
+           
+          },
+          error => {
+           
+          });
+    }
   }
 
   getStore() {

@@ -18,6 +18,7 @@ export class SignupComponent implements OnInit {
   verify_data_resp = <any>{};
   otp = "";
   is_verified = 0;
+  is_bvn_verified = 0;
 
   constructor(private apiService: ApiService , private modalService: NgbModal , private router: Router) { }
 
@@ -48,8 +49,7 @@ export class SignupComponent implements OnInit {
 	      .subscribe(
 	        data => {
 	          if(data.status) {
-	          	this.verify_data_resp = data;
-	          	this.open(content);
+	          	this.is_bvn_verified = 1;
 	          }
 	          else
 	          {
@@ -62,6 +62,34 @@ export class SignupComponent implements OnInit {
 	          alert(error.error.message);
 	        });
   	}
+  }
+
+  bvnVerify() {
+ 	 if(this.form.bvn=="") {
+  		alert('Please Enter BVN.')
+  	}
+  	else
+  	{
+  			let data = { "bvn" : this.form.bvn};
+
+
+	  	this.apiService.bvnVerify(data).pipe()
+	      .subscribe(
+	        data => {
+	          if(data.status) {
+	          	this.verify_data_resp = data;
+	          }
+	          else
+	          {
+	          	alert(data.message);
+	          }
+	          
+	          
+	        },
+	        error => {
+	          alert(error.error.message);
+	        });
+	}
   }
 
   open(content) {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../../services/api.service'
+import { ApiService } from '../../../services/api.service';
+import { Router } from '@angular/router';
 import * as moment from 'moment'
 
 @Component({
@@ -15,11 +16,17 @@ export class RepaymentComponent implements OnInit {
   tenure = 0
   repayment_amount = 0
   next_pay_date = 0
-  constructor(private apiService:ApiService) { }
+  constructor(private apiService:ApiService, private router: Router) { }
 
   ngOnInit() {
-    this.display_block = "store";
-    this.getRepaymentList();
+    if(!localStorage.getItem("user")) {
+        this.router.navigate(['login']);
+    }
+    else
+    {
+      this.display_block = "store";
+      this.getRepaymentList();
+    }
   }
 
 

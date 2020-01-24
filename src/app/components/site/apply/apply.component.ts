@@ -47,7 +47,7 @@ export class ApplyComponent implements OnInit {
                     spouseEmail:"",
                 };
 
-  loanId = "5e0c4c2a49778668159043f5";
+  loanId = "";
 
   error = "";
   personal:any = {};
@@ -73,6 +73,12 @@ export class ApplyComponent implements OnInit {
          this.settings = data.data;
          let user = localStorage.getItem("user");
         this.userData = JSON.parse(user);
+
+        if(this.userData.loanStep && this.userData.loanStep!="")
+        this.step = this.userData.loanStep;
+        if(this.userData.loanId && this.userData.loanId!="")
+        this.loanId = this.userData.loanId;
+        
         this.personal.bvn = this.userData.bvn;
         this.loading = false; 
         },
