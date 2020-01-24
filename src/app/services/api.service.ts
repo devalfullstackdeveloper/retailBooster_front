@@ -3,9 +3,16 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import * as sha512 from 'js-sha512';
+
 @Injectable()
 export class ApiService {
     private actionUrl: string = "http://103.101.59.95:4000/";
+    private websiteUrl: string = "http://103.101.59.95/retailbooster_website/";
+    private paymentUrl: string = "https://remitademo.net/payment/v1/payment";
+    private paymentPublicKey: string = "QzAwMDAxNTUzNjd8NDI3NzY0NzR8NzZjNTJkMjY5YTE0MDA1MGEyZTRlNzQ2YTM4YzJlMjc0OTQwMTk0NGFjN2VkNDBjZDcxMGViODhjM2VmOGI0MGE3YTNmNTA2ZTJlZDZjNTMxOTQ1MDNmNGM4ZTA0YjdjYjEyMTFkZmQ5OTA3ODllZjg0ZGRlYzcwMmFlYzFiZWI=";
+    private paymentSecretKey: string = "403c8c0b03443e790811399f4569cf4b63c0873d47d4671e0e3a11929c8966c135f6be03094d55d8f613d6e5df2a2bffebabc16901f1a868e00de8ec9fb50a96";
+
 
     private headers = new Headers({
       'Authorization': localStorage.getItem('token')
@@ -179,23 +186,69 @@ export class ApiService {
     }
 
     payNow(data) {
-
+        data.returnUrl = this.websiteUrl+"paymentresponse";
         let headers_object = new HttpHeaders({
-           'Content-Type': 'application/json',
-           'publicKey': "dC5vbW9udWJpQGdtYWlsLmNvbXxiM2RjMDhjZDRlZTc5ZDIxZDQwMjdjOWM3MmI5ZWY0ZDA3MTk2YTRkNGRkMjY3NjNkMGZkYzA4MjM1MzI4OWFhODE5OGM4MjM0NTI2YWI2ZjZkYzNhZmQzNDNkZmIzYmUwNTkxODlmMmNkOTkxNmM5MjVhNjYwZjk0ZTk1OTkwNw==",
+           "Content-Type": "application/json",
+           "publicKey": this.paymentPublicKey,
+           "secretKey": this.paymentSecretKey
         });
 
         let httpOptions = {
           headers: headers_object
         };
 
-        return this.http.post<any>(`https://remitademo.net/payment/v1/payment/extended/initialize`,data,httpOptions )
+        return this.http.post<any>(this.paymentUrl+`/extended/initialize`,data,httpOptions )
             .pipe(map(res => {
                 return res;
             }));
     }
 
-    bvnVerify(data) {
+    payResponse(transactionId) {
+
+        let headers_object = new HttpHeaders({
+           "Content-Type": "application/json",
+           "publicKey": this.paymentPublicKey,
+            "TXN_HASH": sha512.sha512(transactionId+this.paymentSecretKey)
+           
+        });
+
+        let httpOptions = {
+          headers: headers_object
+        };
+
+        let data = {};
+
+        return this.http.get<any>(this.paymentUrl+`/query/`+transactionId,httpOptions )
+            .pipe(map(res => {
+                return res;
+            }));
+    }
+
+    approveLoan(data) {
+        return this.http.post<any>(this.actionUrl+`api/admin/approveLoan
+`,data,this.getHttpOptions() )
+            .pipe(map(res => {
+                return res;
+            }));
+    }
+
+    mandateActivateOTP(data) {
+        return this.http.post<any>(this.actionUrl+`api/admin/mandateActivateOTP
+`,data,this.getHttpOptions() )
+            .pipe(map(res => {
+                return res;
+            }));
+    }
+
+    resendMandateRequestOTP(data) {
+        return this.http.post<any>(this.actionUrl+`api/admin/resendMandateRequestOTP
+`,data,this.getHttpOptions() )
+            .pipe(map(res => {
+                return res;
+            }));
+    }
+
+     bvnVerify(data) {
         return this.http.post<any>(this.actionUrl+`api/loanapp/bvnVerify`,data,this.getHttpOptions() )
             .pipe(map(res => {
                 return res;

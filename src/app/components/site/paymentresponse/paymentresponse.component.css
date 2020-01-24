@@ -1,0 +1,9 @@
+.error {
+	margin: 50px 0 !important;
+}
+
+#content {
+	width: 400px;
+	max-width: 90%;
+	margin: 50px auto;
+}

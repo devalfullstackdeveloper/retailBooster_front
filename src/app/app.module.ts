@@ -20,6 +20,7 @@ import { BuycreditComponent } from './components/site/buycredit/buycredit.compon
 import { LoanstatusComponent } from './components/site/loanstatus/loanstatus.component';
 import { TransactionComponent } from './components/site/transaction/transaction.component';
 import { RepaymentComponent } from './components/site/repayment/repayment.component';
+import { PaymentresponseComponent } from './components/site/paymentresponse/paymentresponse.component';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -38,6 +39,7 @@ const appRoutes: Routes = [
   { path: 'loanstatus', component: LoanstatusComponent},
   { path: 'transaction', component: TransactionComponent},
   { path: 'repayment', component: RepaymentComponent},
+  { path: 'paymentresponse', component: PaymentresponseComponent},
   { path: '',
     redirectTo: '/home',
     pathMatch: 'full'
@@ -59,7 +61,8 @@ const appRoutes: Routes = [
     BuycreditComponent,
     LoanstatusComponent,
     TransactionComponent,
-    RepaymentComponent
+    RepaymentComponent,
+    PaymentresponseComponent
   ],
   imports: [
     BrowserModule,

@@ -153,6 +153,7 @@ export class BuycreditComponent implements OnInit {
           this.document_list_count = data.documentList.length;
           this.document_list = data.documentList;
           this.orderId = data.data._id;
+          localStorage.setItem('orderId',data.data._id);
           this.display_block = "salary_history";
         }
         else
@@ -267,7 +268,7 @@ export class BuycreditComponent implements OnInit {
       data => {
         if(data.status) {
           if(isPay=="1") {
-            this.payNow();
+            this.payNow(this.final_calculation.balance_paid);
           }
           else
           {
@@ -285,20 +286,25 @@ export class BuycreditComponent implements OnInit {
       });
   }
 
-  payNow() {
+  payNow(amount) {
+
+    let rendom_string = Math.random().toString(36).substr(2, 9);
+    let transactionId = "RB"+rendom_string;
+
+    localStorage.setItem('transactionId',transactionId);
 
     let payment_request = {
-        "transactionId": "1264551231",
-        "email": "oshadami@specs.com",
-        "amount": 26,
+        "transactionId": transactionId,
+        "email": this.user.email,
+        "amount": amount,
         "currency": "NGN",
-        "firstName": "Mike",
-        "lastName": "Oshadami",
-        "phoneNumber": "080231456789",
-        "customerid": "oshadami@specs.com",
+        "firstName": this.user.firstName,
+        "lastName": this.user.lastName,
+        "phoneNumber": this.user.mobileNo,
+        "customerid": this.user.email,
         "narration": "payment tst",
         "extendedData": "null",
-        "returnUrl": "http://localhost:4200/paymentresponse"
+        "returnUrl": ""
         }
 
 
@@ -306,6 +312,13 @@ export class BuycreditComponent implements OnInit {
     .subscribe(
       data => {
         console.log(data);
+        if(data.responseCode=="00") {
+          window.location = data.responseData[0]['authorizationUrl'];
+        }
+        else
+        {
+            alert(data.responseMsg);
+        }
         
       },
       error => {
