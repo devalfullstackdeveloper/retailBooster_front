@@ -1,0 +1,7 @@
+#success, #error {
+	display: block;
+}
+
+#success {
+    color: #271b22;
+}

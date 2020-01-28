@@ -9,7 +9,9 @@ import { ApiService } from '../../../services/api.service';
 export class ContactusComponent implements OnInit {
   cms_title:any = "";
   constructor(private apiService: ApiService) { }
-
+  form:any = {fullName:"",email:"",mobileNumber:"",subject:"",description:""};
+  success:any = "";
+  error:any = "";
   ngOnInit() {
   	this.getCMS("C1578474595");
   }
@@ -30,6 +32,27 @@ export class ContactusComponent implements OnInit {
       },
       error => {
           alert(error.error.message);
+      });
+  }
+
+  submitContact() {
+    console.log(this.form);
+    this.apiService.sendContactMessage(this.form)
+    .subscribe(
+      data => {
+
+        if(data.status) {
+          this.form = {fullName:"",email:"",mobileNumber:"",subject:"",description:""};
+          this.success = data.message;
+        }
+        else
+        {
+          this.error = data.message;
+        }
+        
+      },
+      error => {
+          this.error = error.error.message;
       });
   }
 

@@ -116,6 +116,12 @@
                                 </a>
                             </li>
 
+                            <li class="nav-item" [ngClass]="{'active': currentRoute=='/apply'}">
+                                <a class="nav-link" [routerLink]="['/apply']" >
+                                    Apply
+                                </a>
+                            </li>
+
                             <li *ngIf="userData" class="nav-item submenu" [ngClass]="{'active': currentRoute=='/buycredit'}">
                                 <a class="nav-link" href="javascript:void(0)" >
                                     My Account

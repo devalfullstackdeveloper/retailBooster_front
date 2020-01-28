@@ -11,6 +11,43 @@
         <section class="contact_info_area sec_pad bg_color">
             <div class="container">
                  <div id="content"></div>
+
+                 <div class="contact_form">
+                    <h2 class="f_p f_size_22 t_color3 f_600 l_height28 mt_100 mb_40">Leave a Message</h2>
+
+                        <form method="post" (ngSubmit)="submitContact()" class="contact_form_box" ngNativeValidate >
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group text_box">
+                                    <input required="" type="text" id="fullName" name="fullName" placeholder="Full name*" [(ngModel)]="form.fullName">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group text_box">
+                                    <input required="" type="email" name="email" id="email" placeholder="Email*" [(ngModel)]="form.email">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group text_box">
+                                    <input required="" type="text" id="mobileNumber" name="mobileNumber" placeholder="Phone number*" [(ngModel)]="form.mobileNumber">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group text_box">
+                                    <input type="text" required="" id="subject" name="subject" placeholder="Subject*" [(ngModel)]="form.subject">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group text_box">
+                                    <textarea required="" name="description" id="description" cols="30" rows="10" placeholder="Description*" [(ngModel)]="form.description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn_three">Send</button>
+                    </form>
+                    <div id="success" *ngIf="success!=''">Your message succesfully sent!</div>
+                    <div id="error" *ngIf="error!=''">Opps! There is something wrong. Please try again</div>
+                </div>
                 <!--<div class="row">
                     <div class="col-lg-3 pr-0">
                         <div class="contact_info_item">
@@ -31,35 +68,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="contact_form">
-                    <h2 class="f_p f_size_22 t_color3 f_600 l_height28 mt_100 mb_40">Leave a Message</h2>
-                    <form action="contact_process.php" class="contact_form_box" method="post" id="contactForm" novalidate="novalidate">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group text_box">
-                                    <input type="text" id="name" name="name" placeholder="Your Name">
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="form-group text_box">
-                                    <input type="text" name="email" id="email" placeholder="Your Email">
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="form-group text_box">
-                                    <input type="text" id="subject" name="subject" placeholder="Subject">
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="form-group text_box">
-                                    <textarea name="message" id="message" cols="30" rows="10" placeholder="Enter Your Message . . ."></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn_three">Send Message</button>
-                    </form>
-                    <div id="success">Your message succesfully sent!</div>
-                    <div id="error">Opps! There is something wrong. Please try again</div>
-                </div>-->
+                -->
             </div>
         </section>

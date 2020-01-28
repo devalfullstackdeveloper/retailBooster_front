@@ -74,8 +74,18 @@ export class ApplyComponent implements OnInit {
          let user = localStorage.getItem("user");
         this.userData = JSON.parse(user);
 
-        if(this.userData.loanStep && this.userData.loanStep!="")
-        this.step = this.userData.loanStep;
+        if(this.userData.loanStep && this.userData.loanStep!="") {
+          if(this.userData.loanStep=="step-1")
+          this.step = "step-2";
+          else if(this.userData.loanStep=="step-2")
+          this.step = "step-3";
+          else if(this.userData.loanStep=="step-3")
+          this.step = "step-4";
+          else if(this.userData.loanStep=="step-4")
+          this.router.navigate(['buycredit']);
+
+        }
+        
         if(this.userData.loanId && this.userData.loanId!="")
         this.loanId = this.userData.loanId;
         
@@ -163,6 +173,7 @@ export class ApplyComponent implements OnInit {
           this.loading = false;
             if(data.status) {
               this.step = "step-5";
+              this.router.navigate(['buycredit']);
             }
         },
         error => {

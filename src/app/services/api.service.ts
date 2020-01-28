@@ -7,8 +7,8 @@ import * as sha512 from 'js-sha512';
 
 @Injectable()
 export class ApiService {
-    private actionUrl: string = "http://103.101.59.95:4000/";
-    private websiteUrl: string = "http://103.101.59.95/retailbooster_website/";
+    private actionUrl: string = "https://retailboosters.ng:4000/";
+    private websiteUrl: string = "https://retailboosters.ng/";
     private paymentUrl: string = "https://remitademo.net/payment/v1/payment";
     private paymentPublicKey: string = "QzAwMDAxNTUzNjd8NDI3NzY0NzR8NzZjNTJkMjY5YTE0MDA1MGEyZTRlNzQ2YTM4YzJlMjc0OTQwMTk0NGFjN2VkNDBjZDcxMGViODhjM2VmOGI0MGE3YTNmNTA2ZTJlZDZjNTMxOTQ1MDNmNGM4ZTA0YjdjYjEyMTFkZmQ5OTA3ODllZjg0ZGRlYzcwMmFlYzFiZWI=";
     private paymentSecretKey: string = "403c8c0b03443e790811399f4569cf4b63c0873d47d4671e0e3a11929c8966c135f6be03094d55d8f613d6e5df2a2bffebabc16901f1a868e00de8ec9fb50a96";
@@ -250,6 +250,13 @@ export class ApiService {
 
      bvnVerify(data) {
         return this.http.post<any>(this.actionUrl+`api/loanapp/bvnVerify`,data,this.getHttpOptions() )
+            .pipe(map(res => {
+                return res;
+            }));
+    }
+
+    sendContactMessage(data) {
+        return this.http.post<any>(this.actionUrl+`api/contactUs/insertUpdate`,data,this.getHttpOptions() )
             .pipe(map(res => {
                 return res;
             }));
