@@ -26,11 +26,15 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { ApiService } from './services/api.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PrivacypolicyComponent } from './components/site/privacypolicy/privacypolicy.component';
+import { TermsandconditionComponent } from './components/site/termsandcondition/termsandcondition.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent},
   { path: 'about-us', component: AboutusComponent},
   { path: 'contact-us', component: ContactusComponent},
+  { path: 'privacy-policy', component : PrivacypolicyComponent},
+  { path: 'terms-and-condition', component : TermsandconditionComponent},
   { path: 'faq', component: FaqComponent},
   { path: 'apply', component: ApplyComponent},
   { path: 'sign-up', component: SignupComponent},
@@ -62,7 +66,9 @@ const appRoutes: Routes = [
     LoanstatusComponent,
     TransactionComponent,
     RepaymentComponent,
-    PaymentresponseComponent
+    PaymentresponseComponent,
+    PrivacypolicyComponent,
+    TermsandconditionComponent
   ],
   imports: [
     BrowserModule,
