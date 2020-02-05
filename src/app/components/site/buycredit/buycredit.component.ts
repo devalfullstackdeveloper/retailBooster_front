@@ -261,7 +261,17 @@ export class BuycreditComponent implements OnInit {
   }
 
   loanSubmit(isPay) {
-    let request = { "orderId" :  this.orderId, "tenorAgreed": this.repaymentPeriod, "delieveryAddress" : this.delieveryAddress, "shippingFee": this.final_calculation.shipping_fees, "subTotal" : this.final_calculation.sub_total, "loanAmount" : this.final_calculation.total_cost, "eligibileLoan" : this.final_calculation.offer_amount , "emi" : this.final_calculation.emi, "balancePaid" : this.final_calculation.balance_paid, "applicationStatus" : "submitted"};
+    let request = { 
+      "orderId" :  this.orderId, 
+      "tenorAgreed": this.repaymentPeriod, 
+      "delieveryAddress" : this.delieveryAddress, 
+      "shippingFee": this.final_calculation.shipping_fees, 
+      "subTotal" : this.final_calculation.sub_total, 
+      "loanAmount" : this.final_calculation.total_cost, 
+      "eligibileLoan" : this.final_calculation.offer_amount , 
+      "emi" : this.final_calculation.emi, 
+      "balancePaid" : this.final_calculation.balance_paid, 
+      "applicationStatus" : "received"};
 
     this.apiService.loanSubmit(request)
     .subscribe(
@@ -272,12 +282,15 @@ export class BuycreditComponent implements OnInit {
           }
           else
           {
-            alert('Loan Application added successfully.')
+            // alert('Loan Application added successfully.')
+            console.log("Going-to-payment---->>>")
+            this.router.navigate(['paymentresponse']);
           }
         }
         else
         {
-          alert(data.message);
+          // alert(data.message);
+          this.router.navigate(['paymentresponse']);
         }
         
       },
@@ -318,6 +331,7 @@ export class BuycreditComponent implements OnInit {
         else
         {
             alert(data.responseMsg);
+            // this.router.navigate(['paymentresponse']);
         }
         
       },

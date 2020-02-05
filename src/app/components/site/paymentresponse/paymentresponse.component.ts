@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiService } from '../../../services/api.service';
 
 
@@ -15,29 +16,55 @@ export class PaymentresponseComponent implements OnInit {
   error:any = "";
   mandateData:any = {};
   remitaTransRef:any = "";
-  constructor(private apiService: ApiService) { }
+  remitaCreditPayment: any = {};
+  constructor(private apiService: ApiService, private router: Router) { }
 
   ngOnInit() {
     this.transactionId = localStorage.getItem('transactionId');
     this.orderId = localStorage.getItem('orderId');
-   
     
-    this.apiService.payResponse(this.transactionId)
+    if(this.transactionId){
+      this.apiService.payResponse(this.transactionId)
     .subscribe(
       data => {
+        console.log("Remita-Payment-Details----",data);
+        this.remitaCreditPayment = data.responseData[0]
         if(data.responseCode=="00")
         {
+          localStorage.removeItem('transactionId');
           this.approveLoan();
+          this.updateRemitaCreditPaymnet();
         }
         else
         {
           this.error_msg = data.responseMsg;  
+          // localStorage.removeItem('transactionId')
         }
         
       },
       error => {
           //alert(error.error.message);
       });
+    }else{
+      this.approveLoan();
+    }
+    
+    // this.apiService.payResponse(this.transactionId)
+    // .subscribe(
+    //   data => {
+    //     if(data.responseCode=="00")
+    //     {
+    //       this.approveLoan();
+    //     }
+    //     else
+    //     {
+    //       this.error_msg = data.responseMsg;  
+    //     }
+        
+    //   },
+    //   error => {
+    //       //alert(error.error.message);
+    //   });
   	
   }
 
@@ -50,18 +77,23 @@ export class PaymentresponseComponent implements OnInit {
 
         if(data.status)
         {
-          this.error_msg = "";
-          let tmpMandate = data.otpDetails.authParams;
-          this.remitaTransRef = data.otpDetails.remitaTransRef;
-          let Mandate = [];
+          if(data.isOtp){
+            this.error_msg = "";
+            let tmpMandate = data.otpDetails.authParams;
+            this.remitaTransRef = data.otpDetails.remitaTransRef;
+            let Mandate = [];
 
 
 
-          for (var i = 0; i < tmpMandate.length; i++) {
-            let obj = tmpMandate[i];
-            Mandate.push({label:obj['label'+(i+1)],param:obj['param'+(i+1)],description:obj['description'+(i+1)],value:""})
+            for (var i = 0; i < tmpMandate.length; i++) {
+              let obj = tmpMandate[i];
+              Mandate.push({label:obj['label'+(i+1)],param:obj['param'+(i+1)],description:obj['description'+(i+1)],value:""})
+            }
+            this.mandateData = Mandate;
+          }else{
+            this.error_msg = data.message;
+            this.router.navigate(['buycredit']);
           }
-          this.mandateData = Mandate;
         }
         else
         {
@@ -92,6 +124,7 @@ export class PaymentresponseComponent implements OnInit {
         {
           this.mandateData = [];
           this.error_msg = "Application Submitted";
+          this.router.navigate(['buycredit']);
         }
         else
         {
@@ -102,6 +135,22 @@ export class PaymentresponseComponent implements OnInit {
       error => {
           this.error = error.error.message;
       });
+  }
+
+  updateRemitaCreditPaymnet(){
+    let request = {orderId:this.orderId , remitaCreditPayment: this.remitaCreditPayment};
+
+    this.apiService.loanSubmit(request)
+    .subscribe(data => {
+      if(data.status){
+        //
+      }else{
+        //
+      }
+    },
+    error => {
+      //
+    })
   }
 
 }
