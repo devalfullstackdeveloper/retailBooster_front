@@ -263,5 +263,19 @@ export class ApiService {
             }));
     }
 
+    forgotPassword(data){
+        return this.http.post<any>(this.actionUrl+`api/user/forgot-password`,data )
+            .pipe(map(res => {
+                return res;
+            }));
+    }
+
+    resetPassword(data){
+        return this.http.post<any>(this.actionUrl+`api/user/resetPassword`,data )
+            .pipe(map(res => {
+                return res;
+            }));
+    }
+
 
 }

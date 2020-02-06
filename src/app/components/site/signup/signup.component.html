@@ -55,7 +55,7 @@
                                         <label class="f_p text_c f_400">Mobile*</label>
                                         <span class="mobile_prefix">+234</span>
                                         <input [disabled]="is_verified" type="text" name="mobile" required="required" [(ngModel)]="form.mobile" class="mobile_prefix_input" placeholder="">
-                                        <input *ngIf="!is_verified" type="button" class="verify_btn" (click)="mobileVerify(content)" value="Verify">
+                                        <input *ngIf="!is_verified" type="button" class="verify_btn" (click)="mobileVerify(content)" value="Verify" data-toggle="modal" data-target="#OtpVerification">
                                         <input [disabled]="is_verified" *ngIf="is_verified" type="button" class="verify_btn" value="Verified">
                                     </div>
                                     <div class="form-group text_box">
@@ -92,3 +92,5 @@
                 </div>
             </div>
         </section>
+
+

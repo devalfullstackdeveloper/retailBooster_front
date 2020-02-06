@@ -28,6 +28,8 @@ import { ApiService } from './services/api.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PrivacypolicyComponent } from './components/site/privacypolicy/privacypolicy.component';
 import { TermsandconditionComponent } from './components/site/termsandcondition/termsandcondition.component';
+import { ForgotPasswordComponent } from './components/site/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/site/reset-password/reset-password.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent},
@@ -44,6 +46,8 @@ const appRoutes: Routes = [
   { path: 'transaction', component: TransactionComponent},
   { path: 'repayment', component: RepaymentComponent},
   { path: 'paymentresponse', component: PaymentresponseComponent},
+  { path: 'forgot-password', component: ForgotPasswordComponent},
+  { path: 'reset-password/:token', component: ResetPasswordComponent},
   { path: '',
     redirectTo: '/home',
     pathMatch: 'full'
@@ -68,7 +72,9 @@ const appRoutes: Routes = [
     RepaymentComponent,
     PaymentresponseComponent,
     PrivacypolicyComponent,
-    TermsandconditionComponent
+    TermsandconditionComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
