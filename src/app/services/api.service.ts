@@ -31,6 +31,13 @@ export class ApiService {
             }));
     }
 
+    resend_signup_otp(data){
+        return this.http.post<any>(this.actionUrl+`api/otp/resendOtp`, data )
+            .pipe(map(res => {
+                return res;
+            }));
+    }
+
     verify_signup_otp(data) {
         return this.http.post<any>(this.actionUrl+`api/otp/verifyOtp`, data )
             .pipe(map(res => {

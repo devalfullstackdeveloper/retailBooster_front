@@ -19,15 +19,16 @@ export class SignupComponent implements OnInit {
   otp = "";
   is_verified = 0;
   is_bvn_verified = 0;
+  otpId = "";
 
   constructor(private apiService: ApiService , private modalService: NgbModal , private router: Router) { }
 
   ngOnInit() {
-  	this.initForm();
+	  this.initForm();
   }
 
   initForm() {
-    this.form = this.form_fields;
+	this.form = this.form_fields;
   }
 
   mobileVerify(content) {
@@ -48,8 +49,12 @@ export class SignupComponent implements OnInit {
 	  	this.apiService.send_signup_otp(data).pipe()
 	      .subscribe(
 	        data => {
+				// console.log("Otp-sent---",data)
 	          if(data.status) {
-	          	this.is_bvn_verified = 1;
+				// this.verify_data_resp.data = data.data._id;
+				  this.otpId = data.data._id;
+				  this.open(content);
+	          	// this.is_bvn_verified = 1;
 	          }
 	          else
 	          {
@@ -101,7 +106,7 @@ export class SignupComponent implements OnInit {
   }
 
   submitOTP() {
-  	let data = { "id" : this.verify_data_resp.data._id, "verificationOtp" : this.otp};
+  	let data = { "id" : this.otpId, "verificationOtp" : this.otp};
   	this.error = "";
   	this.apiService.verify_signup_otp(data).pipe()
 	      .subscribe(
@@ -128,7 +133,7 @@ export class SignupComponent implements OnInit {
   	}
   	else
   	{
-  		let data = { email: this.form.email , mobileNo: this.form.mobile , bvn: this.form.bvn , password: this.form.password } ;
+  		let data = { email: this.form.email , mobileNo: this.form.mobile , bvn: this.form.bvn , password: this.form.password ,otpId: this.otpId} ;
 
   		this.apiService.signup(data)
 	      .subscribe(
@@ -151,6 +156,22 @@ export class SignupComponent implements OnInit {
 		          this.error = error.error.message;
 	        });
   	}
+  }
+
+  resendOtp(){
+	  let data = {id : this.otpId};
+	  this.error = "";
+	  this.apiService.resend_signup_otp(data).pipe()
+	  .subscribe( data => {
+		//   console.log("Resend-Otp----",data);
+		  if(data.status){
+			this.otpId = data.data._id
+		  }else{
+			this.error = data.message
+		  }
+	  },error => {
+		  this.error = error.error.message;
+	  })
   }
 
 }

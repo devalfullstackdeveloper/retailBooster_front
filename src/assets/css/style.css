@@ -453,6 +453,26 @@ a:hover, a:focus, .btn:hover, .btn:focus, button:hover, button:focus {
   background: transparent;
 }
 
+.btn_info {
+  font: 500 14px "Poppins", sans-serif;
+  color: #fff;
+  background: #117a8b;
+  border-radius: 3px;
+  padding: 15px 30px;
+  border: 1px solid #10707f;
+  margin-top: 50px;
+  -webkit-transition: all 0.3s linear;
+  -o-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.btn_info:hover {
+  color: #117a8b;
+  background: transparent;
+}
+
 .agency_banner_btn {
   font: 500 14px "Poppins", sans-serif;
   color: #fff;
