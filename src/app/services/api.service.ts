@@ -101,6 +101,13 @@ export class ApiService {
             }));
     }
 
+    getLoanDetail(data) {
+        return this.http.post<any>(this.actionUrl+`api/loanapp/getdetail`,data,this.getHttpOptions() )
+            .pipe(map(res => {
+                return res;
+            }));
+    }
+
     getUserRepayment(){
         var data = {}
         return this.http.post<any>(this.actionUrl+`api/buyProduct/getUserRepayment`,data,this.getHttpOptions() )
@@ -282,6 +289,36 @@ export class ApiService {
             .pipe(map(res => {
                 return res;
             }));
+    }
+
+    upload_documents( bankStatementFile: File,govermentIdFile: File,passportOrDrivingLicenseFile: File,utilityBillFile: File) {
+
+        const formData = new FormData();
+
+        if(govermentIdFile)
+        formData.append('govermentId', govermentIdFile);
+        if(bankStatementFile)
+        formData.append('bankStatement', bankStatementFile);
+        if(passportOrDrivingLicenseFile)
+        formData.append('passportOrDrivingLicense', passportOrDrivingLicenseFile);
+        if(utilityBillFile)
+        formData.append('utilityBill', utilityBillFile);
+
+        let headers_object = new HttpHeaders({
+           'Authorization': "Bearer "+ localStorage.getItem('token')
+        });
+
+        let httpOptions = {
+          headers: headers_object
+        };
+
+            
+        return this.http.post<any>(this.actionUrl+`api/buyProduct/fileEdit`,formData,httpOptions)
+        .pipe(map(res => {
+            return res;
+        }));
+           
+        
     }
 
 

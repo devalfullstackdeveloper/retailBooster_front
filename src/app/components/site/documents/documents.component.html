@@ -1,0 +1,110 @@
+ <section class="breadcrumb_area">
+            <img class="breadcrumb_shap" src="assets/img/breadcrumb/banner_bg.png" alt="">
+            <div class="container">
+                <div class="breadcrumb_content text-center">
+                    <h1 class="f_p f_700 f_size_50 w_color l_height50 mb_20">Documents</h1>
+                </div>
+            </div>
+        </section>
+<section class="faq_area bg_color sec_pad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                <div class="col-xl-12 col-md-12">
+                    
+                   <div class="card">
+                       <div class="card-header card-header-section-title"> Documents </div>
+
+                        <div class="card-body" *ngIf="!loading">
+
+                            <div class="row" style="align-items: center; padding:5px;" >
+                                <div class="col-md-4">Bank Statement</div>
+                                <div class="col-md-4">
+                                    <div class="custom-file" *ngIf="userData.bankStatement.isEditable">
+                                        <input type="file" class="custom-file-input" id="customFile" (change)="processFile($event,'bankStatement')">
+                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4"><span *ngIf="userData.bankStatement.document!=''" class="font-weight-bold cursor-pointer">
+                                    <button (click)="setModalFile(userData.bankStatement.document)" data-toggle="modal" class="btn btn-primary" data-target="#viewModal"> View</button>
+                                </span></div>
+                            </div>
+
+                            <div class="row" style="align-items: center; padding:5px;">
+                                <div class="col-md-4">Goverment Id</div>
+                                <div class="col-md-4">
+                                    <div class="custom-file" *ngIf="userData.govermentId.isEditable">
+                                        <input type="file" class="custom-file-input" id="customFile2" (change)="processFile($event,'govermentId')">
+                                        <label class="custom-file-label" for="customFile2">Choose file</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4"><span *ngIf="userData.govermentId.document!=''" class="font-weight-bold cursor-pointer"><button (click)="setModalFile(userData.govermentId.document)" data-toggle="modal" class="btn btn-primary" data-target="#viewModal"> View</button></span></div>
+                            </div>
+
+                            <div class="row" style="align-items: center; padding:5px;">
+                                <div class="col-md-4">International Passport Or Driving License</div>
+                                <div class="col-md-4">
+                                    <div class="custom-file" *ngIf="userData.passportOrDrivingLicense.isEditable">
+                                        <input type="file" class="custom-file-input" id="customFile3" (change)="processFile($event,'passportOrDrivingLicense')">
+                                        <label class="custom-file-label" for="customFile3">Choose file</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4"><span *ngIf="userData.passportOrDrivingLicense.document!=''" class="font-weight-bold cursor-pointer">
+                                    <button (click)="setModalFile(userData.passportOrDrivingLicense.document)" data-toggle="modal" class="btn btn-primary" data-target="#viewModal"> View</button>
+                                </span></div>
+                            </div>
+
+
+                            <div class="row" style="align-items: center; padding:5px;">
+                                <div class="col-md-4">Utility Bill</div>
+                                <div class="col-md-4">
+                                    <div class="custom-file" *ngIf="userData.utilityBill.isEditable">
+                                        <input type="file" class="custom-file-input" id="customFile4" (change)="processFile($event,'utilityBill')">
+                                        <label class="custom-file-label" for="customFile4">Choose file</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4"><span *ngIf="userData.utilityBill.document!=''" class="font-weight-bold cursor-pointer">
+
+                                    <button (click)="setModalFile(userData.utilityBill.document)" data-toggle="modal" class="btn btn-primary" data-target="#viewModal"> View</button>
+                                </span></div>
+                            </div>
+
+
+                             <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert>
+
+
+                            <hr class="pb-3">
+                            <div class="row">
+                                <div class="col-12">
+                                    <button type="button" class="btn btn-primary" (click)="onSubmit()"> Save Documents</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div><!-- end col -->
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h4 class="modal-title" id="exampleModalLabel">Document</h4>
+
+
+                  <button type="button" #closeApplicationModal class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body text-center">
+                <img src="{{modalFile}}" style="max-width: 100%; " />
+              </div>
+          </div>
+      </div>
+  </div>

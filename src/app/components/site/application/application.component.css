@@ -1,0 +1,8 @@
+.nav-link {
+	cursor: pointer;
+}
+
+.loading {
+	font-size: 30px;
+	color: #eb4224;
+}

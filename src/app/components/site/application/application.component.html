@@ -1,0 +1,441 @@
+ <section class="breadcrumb_area">
+            <img class="breadcrumb_shap" src="assets/img/breadcrumb/banner_bg.png" alt="">
+            <div class="container">
+                <div class="breadcrumb_content text-center">
+                    <h1 class="f_p f_700 f_size_50 w_color l_height50 mb_20">Apply Loan</h1>
+                </div>
+            </div>
+        </section>
+<section class="faq_area bg_color sec_pad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 pr_50">
+                <div class="faq_tab">
+                    <h4 class="f_p t_color3 f_600 f_size_22 mb_40">Application Form</h4>
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item"  >
+                            <a class="nav-link active" [ngClass]="{'active' : step=='step-1'}" id="personal-tab" (click)="loadApplicationStep('1')">1. Personal Information</a>
+                        </li>
+                        <li class="nav-item" >
+                            <a class="nav-link" [ngClass]="{'active' : step=='step-2'}" id="contact-tab" (click)="loadApplicationStep('2')">2. Contact Information</a>
+                        </li>
+                        <li class="nav-item" >
+                            <a class="nav-link" [ngClass]="{'active' : step=='step-3'}" id="employee-tab" (click)="loadApplicationStep('3')">3. Employee Information</a>
+                        </li>
+                        <li class="nav-item" >
+                            <a class="nav-link" [ngClass]="{'active' : step=='step-4'}" id="loan-tab" (click)="loadApplicationStep('4')">4. Loan Information</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="loading" *ngIf="loading">Loading...</div>
+                <div class="tab-content apply_loan_content" id="myTabContent">
+                    <div class="tab-pane fade " id="personalTab" role="tabpanel" aria-labelledby="personal-tab" [ngClass]="{'show active':step=='step-1'}">
+                        <h3 class="f_p f_size_22 f_500 t_color3 mb_20">Personal Information</h3>
+                       
+                        <div class="card">
+                            
+                             <form method="post" (ngSubmit)="saveStep1()" class="row" ngNativeValidate>
+                                
+
+                                  <div class="d-contents">
+                                    <div class="row" *ngIf="!loading">
+                                    
+                                      <div class="form-group col-12 col-lg-6">
+                                          <label for="">Title</label>
+                                          <select class="form-control input-md" required name="title" placeholder="Title" name="title" [(ngModel)]="personal.title">
+                                            <option value="{{val}}" *ngFor="let val of settings.dropDown.title; let i = index">{{val}}</option>
+                                          </select>
+                                        </div>
+
+                                        <div class="form-group col-12 col-lg-6">
+                                          <label for="">First Name</label>
+                                            <input class="form-control input-md" required name="firstName" type="text" placeholder="First Name" [(ngModel)]="personal.firstName">
+                                        </div>
+
+                                        <div class="form-group col-12 col-lg-6">
+                                          <label for="">Last name</label>
+                                          <input class="form-control input-md" required id="lastName" name="lastName" type="text" placeholder="Last Name" [(ngModel)]="personal.lastName">
+                                        </div>
+
+                                         
+
+                                        <div class="form-group col-12 col-lg-6">
+                                          <label for="">Gender</label>
+                                          <select class="form-control input-md" required id="gender" name="gender" placeholder="Gender" name="gender" [(ngModel)]="personal.gender">
+                                            <option value="{{val}}" *ngFor="let val of settings.dropDown.gender; let i = index">{{val}}</option>
+                                          </select>
+                                        </div>
+
+                                        <div class="form-group col-12 col-lg-6">
+                                          <label for="">Marital Status</label>
+                                          <select class="form-control input-md" required id="maritalStatus" name="maritalStatus" placeholder="Gender" name="maritalStatus" [(ngModel)]="personal.maritalStatus">
+                                            <option value="{{val}}" *ngFor="let val of settings.dropDown.maritalStatus; let i = index">{{val}}</option>
+                                          </select>
+                                        </div>
+
+                                         <div class="form-group col-12 col-lg-6">
+                                          <label for="">Means Of Identification</label>
+                                          <select class="form-control input-md" required id="meansOfIdentification" name="meansOfIdentification" placeholder="Means Of Identification" name="meansOfIdentification" [(ngModel)]="personal.meansOfIdentification">
+                                            <option value="{{val}}" *ngFor="let val of settings.dropDown.meansOfIdentification; let i = index">{{val}}</option>
+                                          </select>
+                                        </div>
+
+                                        <div class="form-group col-12 col-lg-12">
+                                          <label for="">Identification Number</label>
+                                          <input class="form-control input-md" required id="identificationNumber" name="identificationNumber" type="text" placeholder="Identification Number" [(ngModel)]="personal.identificationNumber">
+                                        </div>
+
+                                       <div class="form-group col-12 col-lg-6">
+                                          <label for="">Expiry Date Of Id</label>
+                                          <input class="form-control bg-white" required id="expiryDateOfId" name="expiryDateOfId" type="date" placeholder="Select Date"  [(ngModel)]="personal.expiryDateOfId" data-toggle="flatpickr">
+                                        </div>
+
+                                        <div class="form-group col-12 col-lg-6">
+                                          <label for="">Date of Birth</label>
+                                          <input class="form-control bg-white" required id="dateOfBirth" name="dateOfBirth" type="date" placeholder="Select Date"  [(ngModel)]="personal.dateOfBirth" data-toggle="flatpickr">
+                                        </div>
+
+                                        <div class="form-group col-12 col-lg-6">
+                                          <label for="">Number Of Dependents</label>
+                                          <select class="form-control input-md" required id="numberOfDependents" name="numberOfDependents" placeholder="Means Of Identification" name="numberOfDependents" [(ngModel)]="personal.numberOfDependents">
+                                            <option value="{{val}}" *ngFor="let val of settings.dropDown.numberOfDependents; let i = index">{{val}}</option>
+                                          </select>
+                                        </div>
+
+
+                                        <div class="form-group col-12 col-lg-6">
+                                          <label for="">Educational BackGround</label>
+                                          <select class="form-control input-md" id="educationalBackGround" required name="educationalBackGround" placeholder="Educational BackGround" name="educationalBackGround" [(ngModel)]="personal.educationalBackGround">
+                                            <option value="{{val}}" *ngFor="let val of settings.dropDown.educationalBackground; let i = index">{{val}}</option>
+                                          </select>
+                                        </div>
+                                      
+
+                                        <div class="col-12 text-right">
+                                          <div class="error text-left">{{error}}</div>
+
+                                          <button type="submit" class="btn btn-primary">Next</button>
+                                        </div>
+
+
+
+
+
+                                  </div>
+                                  </div>
+                              </form>
+
+                            </div>
+
+                        </div>
+                       
+
+                    <div class="tab-pane fade " id="contact" role="tabpanel" aria-labelledby="contact-tab" [ngClass]="{'show active':step=='step-2'}">
+                        <h3 class="f_p f_size_22 f_500 t_color3 mb_20">Contact Information</h3>
+                       
+                        <div class="card">
+                            
+                        <form #contactForm="ngForm" (ngSubmit)="saveStep2()" class="row" ngNativeValidate>
+                       <div class="row" *ngIf="!loading">
+
+                         <div class="form-group col-12 col-lg-6">
+                      <label for="">Mobile No 1</label>
+                        <input class="form-control input-md" #mobileNo1="ngModel" required id="mobileNo1" name="mobileNo1" type="text" placeholder="Mobile No 1" [(ngModel)]="contact.mobileNo1">
+                    </div>
+
+                    <div class="form-group col-12 col-lg-6">
+                      <label for="">Mobile No 2</label>
+                        <input class="form-control input-md" #mobileNo2="ngModel" required id="mobileNo2" name="mobileNo2" type="text" placeholder="Mobile No 2" [(ngModel)]="contact.mobileNo2">
+                    </div>
+
+
+                    <div class="form-group col-12 col-lg-12">
+                      <label for="">Email Address</label>
+                        <input class="form-control input-md" #email="ngModel" required id="email" name="email" type="email" placeholder="Email" [(ngModel)]="contact.email">
+                    </div>
+
+                     <div class="form-group col-12">
+                      <label for="">Home Address</label>
+                      <textarea class="form-control input-md" #homeAddress="ngModel" id="homeAddress" name="homeAddress" placeholder="Home Address" [(ngModel)]="contact.homeAddress"></textarea>
+                    </div>
+
+                    <div class="form-group col-12 col-lg-12">
+                      <label for="">Nearest Bus Stop</label>
+                        <input class="form-control input-md" #nearestBusStop="ngModel" required id="nearestBusStop" name="nearestBusStop" type="text" placeholder="Nearest Bus Stop" [(ngModel)]="contact.nearestBusStop">
+                    </div>
+
+                    <div class="form-group col-12 col-lg-12">
+                      <label for="">Building Discription</label>
+                        <input class="form-control input-md" #buildingDiscription="ngModel" required id="buildingDiscription" name="buildingDiscription" type="text" placeholder="Building Discription" [(ngModel)]="contact.buildingDiscription">
+                    </div>
+
+                    <div class="form-group col-12 col-lg-6">
+                      <label for="">State</label>
+                      <select class="form-control input-md" #state1="ngModel" id="state1" name="state1" name="state1" (change)="loadLGAFromState($event.target.value)" [(ngModel)]="contact.state1">
+                        <option value="{{val}}" *ngFor="let val of settings.dropDown.state; let i = index">{{val}}</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group col-12 col-lg-6">
+                      <label for="">LGA</label>
+                      <select class="form-control input-md" #contactLga="ngModel" id="contactLga" name="contactLga" placeholder="LGA" name="contactLga" [(ngModel)]="contact.contactLga">
+                        <option value="{{val}}" *ngFor="let val of lgaListState; let i = index">{{val}}</option>
+                      </select>
+                    </div>
+
+
+                    <div class="form-group col-12 col-lg-6">
+                      <label for="">Type of Apartment</label>
+                      <select class="form-control input-md" #typeOfApartment="ngModel" id="typeOfApartment" name="typeOfApartment" placeholder="Type of Apartment" name="typeOfApartment" [(ngModel)]="contact.typeOfApartment">
+                        <option value="{{val}}" *ngFor="let val of settings.dropDown.typeOfAppartment; let i = index">{{val}}</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group col-12 col-lg-6">
+                      <label for="">Accomodation Type</label>
+                      <select class="form-control input-md" #accomodationType="ngModel" id="accomodationType" name="accomodationType" placeholder="Accomodation Type" name="accomodationType" [(ngModel)]="contact.accomodationType">
+                        <option value="{{val}}" *ngFor="let val of settings.dropDown.accommodationType; let i = index">{{val}}</option>
+                      </select>
+                    </div>
+
+                    <div class="form-group col-12 col-lg-12">
+                      <label for="">How to get to your home</label>
+                        <input class="form-control input-md" #HowtogetToYourHome="ngModel" required id="HowtogetToYourHome" name="HowtogetToYourHome" type="text" placeholder="How to get to your home" [(ngModel)]="contact.HowtogetToYourHome">
+                    </div>
+
+                    <div class="form-group col-12 col-lg-6">
+                      <label for="">Common name called at home</label>
+                        <input class="form-control input-md" #commonNameCalledAtHome="ngModel" required id="commonNameCalledAtHome" name="commonNameCalledAtHome" type="text" placeholder="Common name called at home" [(ngModel)]="contact.commonNameCalledAtHome">
+                    </div>
+
+                    <div class="form-group col-12 col-lg-6">
+                      <label for="">Length of stay</label>
+                      <select class="form-control input-md" #lengthOfStay="ngModel" id="lengthOfStay" name="lengthOfStay" placeholder="Length of stay" name="lengthOfStay" [(ngModel)]="contact.lengthOfStay">
+                        <option value="{{val}}" *ngFor="let val of settings.dropDown.lengthOfStay; let i = index">{{val}}</option>
+                      </select>
+                    </div>
+
+                     <div class="form-group col-12 col-lg-6">
+                      <label for="">Referee Name</label>
+                        <input class="form-control input-md" #refereeName="ngModel" required id="refereeName" name="refereeName" type="text" placeholder="Referee Name" [(ngModel)]="contact.refereeName">
+                    </div>
+
+                    <div class="form-group col-12 col-lg-6">
+                      <label for="">Referee Mobile No</label>
+                        <input class="form-control input-md" #refereeMobileNo="ngModel" required id="refereeMobileNo" name="refereeMobileNo" type="text" placeholder="Referee Mobile No" [(ngModel)]="contact.refereeMobileNo">
+                    </div>
+
+                    <div class="form-group col-12 col-lg-6">
+                      <label for="">Spouse Name</label>
+                        <input class="form-control input-md" #spouseName="ngModel" required id="spouseName" name="spouseName" type="text" placeholder="Spouse Name" [(ngModel)]="contact.spouseName">
+                    </div>
+
+                    <div class="form-group col-12 col-lg-6">
+                      <label for="">Spouse Mobile No</label>
+                        <input class="form-control input-md" #spouseMobileNo="ngModel" required id="spouseMobileNo" name="spouseMobileNo" type="text" placeholder="Spouse Mobile No" [(ngModel)]="contact.spouseMobileNo">
+                    </div>
+
+                    <div class="form-group col-12 col-lg-6">
+                      <label for="">Spouse Email</label>
+                        <input class="form-control input-md" #spouseEmail="ngModel" required id="spouseEmail" name="spouseEmail" type="text" placeholder="Spouse Email" [(ngModel)]="contact.spouseEmail">
+                    </div>
+
+                    
+
+                    <div class="col-12 text-right">
+                      <div class="error text-left">{{error}}</div>
+
+                      <button type="submit" class="btn btn-primary">Next</button>
+                    </div>
+                      </div>
+                  </form>
+                           </div> 
+
+                       </div>
+
+
+                    <div class="tab-pane fade " id="employee" role="tabpanel" aria-labelledby="employee-tab" [ngClass]="{'show active':step=='step-3'}">
+                        <h3 class="f_p f_size_22 f_500 t_color3 mb_20">Employment Information</h3>
+                       
+                        <div class="card">
+                            <form #employmentForm="ngForm" (ngSubmit)="saveStep3()" class="row" ngNativeValidate>
+                           <div class="row" *ngIf="!loading">
+
+                            <div class="form-group col-12 col-lg-6">
+                              <label for="">Employment Status</label>
+                
+                                <input class="form-control input-md" #employmentStatus="ngModel" required id="employmentStatus" name="employmentStatus" type="text" placeholder="Employment Status" [(ngModel)]="employment.employmentStatus">
+
+                            </div>
+
+                              <div class="form-group col-12 col-lg-6">
+                                <label for="">Department</label>
+                                  <input class="form-control input-md" #department="ngModel" required id="department" name="department" type="text" placeholder="Department" [(ngModel)]="employment.department">
+                              </div>
+
+                              <div class="form-group col-12 col-lg-12">
+                                <label for="">Enter your Company Name</label>
+                                  <input class="form-control input-md" #companyName="ngModel" required id="companyName" name="companyName" type="text" placeholder="company Name" [(ngModel)]="employment.companyName">
+                              </div>
+
+                              <div class="form-group col-12 col-lg-12">
+                                <label for="">Company Address</label>
+                                  <input class="form-control input-md" #officeAddress="ngModel" required id="officeAddress" name="officeAddress" type="text" placeholder="Company Address" [(ngModel)]="employment.officeAddress">
+                              </div>
+
+                               <div class="form-group col-12 col-lg-6">
+                                <label for="">Company HR Contact Phone Number</label>
+                                  <input class="form-control input-md" #officePhone="ngModel" required id="officePhone" name="officePhone" type="text" placeholder="Company Phone" [(ngModel)]="employment.officePhone">
+                              </div>       
+
+                              <div class="form-group col-12 col-lg-6">
+                                <label for="">Company HR Email</label>
+                                  <input class="form-control input-md" #officialEmail="ngModel" required id="officialEmail" name="officialEmail" type="email" placeholder="Company HR Email" [(ngModel)]="employment.officialEmail">
+                              </div>
+
+                              <div class="form-group col-12 col-lg-6">
+                                <label for="">Time At Organisation</label>
+                                <select class="form-control input-md" #timeAtOrganisation="ngModel" id="timeAtOrganisation" name="timeAtOrganisation" placeholder="Time At Organisation" name="employmentLga" [(ngModel)]="employment.timeAtOrganisation">
+                                  <option value="{{val}}" *ngFor="let val of settings.dropDown.timeAtOrganisation; let i = index">{{val}}</option>
+                                </select>
+                              </div>
+
+                              <div class="form-group col-12 col-lg-6">
+                                <label for="">Employment Term</label>
+
+                                  <select class="form-control input-md" #employmentTerm="ngModel" id="employmentTerm" name="employmentTerm" name="employmentTerm" [(ngModel)]="employment.employmentTerm">
+                                  <option value="{{val}}" *ngFor="let val of settings.dropDown.employmentTerm; let i = index">{{val}}</option>
+                                </select>
+                              </div>
+
+                              <div class="form-group col-12 col-lg-6">
+                                <label for="">Net Monthly Salary</label>
+                                <input class="form-control input-md" #netMonthlySalary="ngModel" required id="netMonthlySalary" name="netMonthlySalary" type="number" placeholder="net Monthly Salary" [(ngModel)]="employment.netMonthlySalary">
+                              </div>
+                              
+
+                              <div class="col-12 text-right">
+                               <div class="error text-left">{{error}}</div>
+
+                                <button type="submit"  class="btn btn-primary">Next</button>
+                              </div>
+                          </div>
+                      </form>
+                          
+                        </div> 
+
+                       </div>
+
+
+
+                    <div class="tab-pane fade " id="loan" role="tabpanel" aria-labelledby="loan-tab" [ngClass]="{'show active':step=='step-4'}">
+                        <h3 class="f_p f_size_22 f_500 t_color3 mb_20" >Loan Information</h3>
+                       
+                        <div class="card">
+                            <form #loaninfoForm="ngForm" class="row" (ngSubmit)="saveStep4()" ngNativeValidate>
+                           <div class="row" *ngIf="!loading">
+                             <div class="form-group col-12 col-lg-12">
+                                <label for="">Are you currently Owing any Organisation?</label>
+                                  <select class="form-control input-md" #CurrentlyOwingAnyOrganisation="ngModel" id="CurrentlyOwingAnyOrganisation" name="CurrentlyOwingAnyOrganisation" name="CurrentlyOwingAnyOrganisation" [(ngModel)]="loaninfo.CurrentlyOwingAnyOrganisation">
+                                  <option value="{{val}}" *ngFor="let val of settings.dropDown.otherSourseOfIncome; let i = index">{{val}}</option>
+                                </select>
+                              </div>
+
+                              <div class="form-group col-12 col-lg-12">
+                                <label for="">If Yes, State Value Of Loan</label>
+                                  <input class="form-control input-md" #stateValueOfLoan="ngModel" required id="stateValueOfLoan" name="stateValueOfLoan" type="text" placeholder="State Value Of Loan" [(ngModel)]="loaninfo.stateValueOfLoan">
+                              </div>
+
+                              <div class="form-group col-12 col-lg-12">
+                                <label for="">When was it Disbursed?</label>
+                                  <input class="form-control input-md" #Disbursed="ngModel" required id="Disbursed" name="Disbursed" type="text" placeholder="Disbursed" [(ngModel)]="loaninfo.Disbursed">
+                              </div>
+
+                              <div class="form-group col-12 col-lg-6">
+                                <label for="">Tenor</label>
+                                  <select class="form-control input-md" #tenor="ngModel" id="tenor" name="tenor" placeholder="Tenor" name="tenor" [(ngModel)]="loaninfo.tenor">
+                                  <option value="{{val}}" *ngFor="let val of settings.dropDown.tenor; let i = index">{{val}}</option>
+                                </select>
+                              </div>
+
+                              <div class="form-group col-12 col-lg-6">
+                                <label for="">Outstanding</label>
+                                  <input class="form-control input-md" #outstanding="ngModel" required id="outstanding" name="outstanding" type="text" placeholder="Outstanding" [(ngModel)]="loaninfo.outstanding">
+                              </div>
+
+                              <div class="form-group col-12 col-lg-6">
+                                <label for="">Have you missed any repayment to date?</label>
+                                <input class="form-control bg-white" #missedRepaymentDate="ngModel" required id="missedRepaymentDate" name="missedRepaymentDate" type="date" placeholder="Missed Repayment Date"  [(ngModel)]="loaninfo.missedRepaymentDate" data-toggle="flatpickr">
+                              </div>
+
+                              <div class="form-group col-12 col-lg-6">
+                                <label for="">How much / Month</label>
+                                  <select class="form-control input-md" #month="ngModel" id="month" name="month" placeholder="How much / Month" name="month" [(ngModel)]="loaninfo.month">
+                                  <option value="{{val}}" *ngFor="let val of settings.dropDown.HowmuchMonth; let i = index">{{val}}</option>
+                                </select>
+                              </div>
+
+
+                              
+
+                              <div class="form-group col-12 col-lg-6">
+                                <label for="">Repayment Bank</label>
+                                  <select class="form-control input-md" #repaymentBank="ngModel" id="repaymentBank" name="repaymentBank" placeholder="Repayment Bank" name="repaymentBank" [(ngModel)]="loaninfo.repaymentBank">
+                                  <option value="{{val}}" *ngFor="let val of settings.dropDown.repaymentBankbank; let i = index">{{val}}</option>
+                                </select>
+                              </div>
+
+                              <div class="form-group col-12 col-lg-6">
+                                <label for="">Repayment Account Number</label>
+                                  <input class="form-control input-md" #repaymentAccount="ngModel" required id="repaymentAccount" name="repaymentAccount" type="text" placeholder="Repayment Account" [(ngModel)]="loaninfo.repaymentAccount">
+                              </div>
+
+                              <div class="form-group col-12 col-lg-6">
+                                <label for="">Repayment Account Name</label>
+                                  <input class="form-control input-md" #repaymentAccountName="ngModel" required id="repaymentAccountName" name="repaymentAccountName" type="text" placeholder="Repayment Account Name" [(ngModel)]="loaninfo.repaymentAccountName">
+                              </div>
+
+
+                              
+
+                              <div class="form-group col-12 col-lg-6">
+                                <label for="">Other Bank</label>
+                                  <select class="form-control input-md" #otherBank="ngModel" id="otherBank" name="otherBank" placeholder="Other Bank" name="otherBank" [(ngModel)]="loaninfo.otherBank">
+                                  <option value="{{val}}" *ngFor="let val of settings.dropDown.repaymentBankbank; let i = index">{{val}}</option>
+                                </select>
+                              </div>
+
+                              <div class="form-group col-12 col-lg-6">
+                                <label for="">Other Account Number</label>
+                                  <input class="form-control input-md" #otherAccount="ngModel" required id="otherAccount" name="otherAccount" type="text" placeholder="Other Account" [(ngModel)]="loaninfo.otherAccount">
+                              </div>
+
+                              <div class="form-group col-12 col-lg-6">
+                                <label for="">Other Account Name</label>
+                                  <input class="form-control input-md" #otherAccountName="ngModel" required id="otherAccountName" name="otherAccountName" type="text" placeholder="Other Account Name" [(ngModel)]="loaninfo.otherAccountName">
+                              </div>
+
+                              <div class="col-12 text-right">
+                                <div class="error text-left">{{error}}</div>
+
+                                <button type="submit" class="btn btn-primary">Save</button>
+                              </div>
+                          </div>
+                      </form>
+                          
+                        </div> 
+
+                       </div>
+
+                        <div class="tab-pane fade " [ngClass]="{'show active':step=='step-5'}">
+                          <h3 class="f_p f_size_22 f_500 t_color3 mt_20" >Loan Application saved successfully.</h3>
+
+                        </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

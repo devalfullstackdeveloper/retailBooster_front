@@ -21,6 +21,8 @@ import { LoanstatusComponent } from './components/site/loanstatus/loanstatus.com
 import { TransactionComponent } from './components/site/transaction/transaction.component';
 import { RepaymentComponent } from './components/site/repayment/repayment.component';
 import { PaymentresponseComponent } from './components/site/paymentresponse/paymentresponse.component';
+import { ApplicationComponent } from './components/site/application/application.component';
+import { DocumentsComponent } from './components/site/documents/documents.component';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -48,6 +50,8 @@ const appRoutes: Routes = [
   { path: 'paymentresponse', component: PaymentresponseComponent},
   { path: 'forgot-password', component: ForgotPasswordComponent},
   { path: 'reset-password/:token', component: ResetPasswordComponent},
+  { path: 'application', component: ApplicationComponent},
+  { path: 'documents', component: DocumentsComponent},
   { path: '',
     redirectTo: '/home',
     pathMatch: 'full'
@@ -74,7 +78,9 @@ const appRoutes: Routes = [
     PrivacypolicyComponent,
     TermsandconditionComponent,
     ForgotPasswordComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    ApplicationComponent,
+    DocumentsComponent
   ],
   imports: [
     BrowserModule,
