@@ -88,6 +88,26 @@ export class DocumentsComponent implements OnInit {
       .subscribe(
         data => {
           this.loading = false;
+
+          if(data.status) {
+            for (var i = 0; i < data.data.length; i++) {
+              let obj = data.data[i];
+              if(obj.name=="Bank Statement") {
+                this.userData.bankStatement = obj
+              }
+              else if(obj.name=="Goverment Id") {
+                this.userData.govermentId = obj
+              }
+              else if(obj.name=="Internatinal Passport Or Driving License") {
+                this.userData.passportOrDrivingLicense = obj
+              }
+              else if(obj.name=="Utility Bill") {
+                this.userData.utilityBill = obj
+              }
+            }
+            let data_str = JSON.stringify(this.userData);
+            localStorage.setItem("user", data_str);
+          }
           this.error = "Document uploaded successfully.";
         },
         error => {
