@@ -2,12 +2,15 @@
             <img class="breadcrumb_shap" src="assets/img/breadcrumb/banner_bg.png" alt="">
             <div class="container">
                 <div class="breadcrumb_content text-center">
-                    <h1 class="f_p f_700 f_size_50 w_color l_height50 mb_20">Apply Loan</h1>
+                    <h1 class="f_p f_700 f_size_50 w_color l_height50 mb_20">Loan Application Form</h1>
                 </div>
             </div>
         </section>
 <section class="faq_area bg_color sec_pad">
     <div class="container">
+      <div>
+        <p style="color: red;" *ngIf="!editApplication">You can't Edit your Loan Application Because You have alredy one Loan is Running</p>
+      </div>
         <div class="row">
             <div class="col-lg-4 pr_50">
                 <div class="faq_tab">
@@ -116,7 +119,7 @@
                                         <div class="col-12 text-right">
                                           <div class="error text-left">{{error}}</div>
 
-                                          <button type="submit" class="btn btn-primary">Next</button>
+                                          <button [disabled]="!editApplication" type="submit" class="btn btn-primary">Next</button>
                                         </div>
 
 
@@ -247,7 +250,7 @@
                     <div class="col-12 text-right">
                       <div class="error text-left">{{error}}</div>
 
-                      <button type="submit" class="btn btn-primary">Next</button>
+                      <button [disabled]="!editApplication" type="submit" class="btn btn-primary">Next</button>
                     </div>
                       </div>
                   </form>
@@ -319,7 +322,7 @@
                               <div class="col-12 text-right">
                                <div class="error text-left">{{error}}</div>
 
-                                <button type="submit"  class="btn btn-primary">Next</button>
+                                <button [disabled]="!editApplication" type="submit"  class="btn btn-primary">Next</button>
                               </div>
                           </div>
                       </form>
@@ -420,7 +423,7 @@
                               <div class="col-12 text-right">
                                 <div class="error text-left">{{error}}</div>
 
-                                <button type="submit" class="btn btn-primary">Save</button>
+                                <button [disabled]="!editApplication" type="submit" class="btn btn-primary">Save</button>
                               </div>
                           </div>
                       </form>

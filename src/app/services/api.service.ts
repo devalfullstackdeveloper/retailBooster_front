@@ -59,6 +59,13 @@ export class ApiService {
             }));
     }
 
+    login_user() {
+        return this.http.get<any>(this.actionUrl+`api/auth/me` , this.getHttpOptions())
+            .pipe(map(res => {
+                return res;
+            }));
+    }
+
     get_store() {
         return this.http.get<any>(this.actionUrl+`api/store/getStore` )
             .pipe(map(res => {

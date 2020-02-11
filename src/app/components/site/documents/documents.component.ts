@@ -33,26 +33,60 @@ export class DocumentsComponent implements OnInit {
   constructor(private apiService: ApiService , private router: Router) { }
 
   ngOnInit() {
+
+    
+
+
     if(localStorage.getItem("user")) {
       this.loading = true;
-      
-      this.apiService.getSettingValues().pipe()
-      .subscribe(
-        data => {
 
-         this.settings = data.data;
-         let user = localStorage.getItem("user");
-         this.userData = JSON.parse(user);
+      this.apiService.login_user().pipe()
+      .subscribe( u_data => {
+        // console.log("Login-----",u_data)
+        if(u_data.status){
+
+          this.userData = u_data.data;
+
+          if(this.userData.loanId && this.userData.loanId!=""){
+            this.loanId = this.userData.loanId;
+          }
+
+          this.apiService.getSettingValues().pipe()
+          .subscribe(
+            data => {
+              this.settings = data.data;
+              this.loading = false
+            },
+            error => {
+              this.loading = false
+            }
+          )
+
+        }else{
+
+        }
+      }, 
+      error => {
+        this.loading = false;
+      })
+      
+      // this.apiService.getSettingValues().pipe()
+      // .subscribe(
+      //   data => {
+
+      //    this.settings = data.data;
+      //    let user = localStorage.getItem("user");
+      //    this.userData = JSON.parse(user);
         
 
-         if(this.userData.loanId && this.userData.loanId!="")
-          this.loanId = this.userData.loanId;
+      //    if(this.userData.loanId && this.userData.loanId!="")
+      //     this.loanId = this.userData.loanId;
       
-        this.loading = false; 
-        },
-        error => {
-         this.loading = false;
-        });
+      //   this.loading = false; 
+      //   },
+      //   error => {
+      //    this.loading = false;
+      //   });
 
 
     }

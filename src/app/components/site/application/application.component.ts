@@ -8,6 +8,7 @@ import { ApiService } from '../../../services/api.service';
   styleUrls: ['./application.component.css']
 })
 export class ApplicationComponent implements OnInit {
+  editApplication = false;
   userData:any = {};
   personal1:any = {
                     bvn: "",
@@ -79,6 +80,7 @@ export class ApplicationComponent implements OnInit {
         
         this.personal.bvn = this.userData.bvn;
         this.loadApplicationStep("1");
+        console.log("Edit-Application-1---",this.editApplication);
         this.loading = false; 
         },
         error => {
@@ -106,6 +108,12 @@ export class ApplicationComponent implements OnInit {
         data => {
           this.loading = false;
             if(data.status) {
+
+              if(data.data.editApplicationForm){
+                this.editApplication = true;
+                console.log("Edit-Application-2---",this.editApplication);
+              }
+
               if(step=="1")
               {
                 data.data.expiryDateOfId = this.getDateFormat(data.data.expiryDateOfId);
