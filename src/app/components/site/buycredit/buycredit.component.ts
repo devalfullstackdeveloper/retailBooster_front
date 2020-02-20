@@ -276,8 +276,10 @@ export class BuycreditComponent implements OnInit {
     this.apiService.loanSubmit(request)
     .subscribe(
       data => {
-        if(data.status) {
-          if(isPay=="1") {
+        if(data.status) 
+        {
+          if(isPay=="1") 
+          {
             this.payNow(this.final_calculation.balance_paid);
           }
           else
@@ -300,7 +302,7 @@ export class BuycreditComponent implements OnInit {
   }
 
   payNow(amount) {
-
+    
     let rendom_string = Math.random().toString(36).substr(2, 9);
     let transactionId = "RB"+rendom_string;
 
@@ -324,7 +326,7 @@ export class BuycreditComponent implements OnInit {
     this.apiService.payNow(payment_request)
     .subscribe(
       data => {
-        console.log(data);
+        //console.log("check amount",data);
         if(data.responseCode=="00") {
           window.location = data.responseData[0]['authorizationUrl'];
         }
