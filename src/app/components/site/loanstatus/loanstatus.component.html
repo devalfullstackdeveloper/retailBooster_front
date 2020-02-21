@@ -14,7 +14,7 @@
 
                         </h3>
                         <button type="submit" class="btn_three mt_0 mb_20 float-right">All Transactions</button> -->
-                        <table class="table table-responsive">
+                        <table class="table table-responsiv">
                           <tr class="text-center">
                             <th>Item</th>
                             <th>Disbursed Date</th>
@@ -58,6 +58,7 @@
                     <div class="col-lg-12">
                       <button type="submit" class="btn_three mt_0 mb_20 float-right" (click)="goBack()">Back</button>
                     </div>
+                    
                     <div class="col-lg-12">
                       <div class="row">
                         <div class="col-lg-4">
@@ -106,8 +107,20 @@
                               {{loan_status.repaymentAmount}}
                             </div>
                           </div> -->
+
                           
-                            
+                          <div class="col-lg-12">
+                            <div class="row" style="background-color: white;">
+                                <div class="col-lg-6">
+                                  <h3>Loan Status :-</h3>
+                                </div>
+                                <div class="col-lg-6">
+                                  <label class="label label-success">
+                                    {{loan_status.orderApplicationStatus}}
+                                  </label>
+                                </div>
+                             </div>
+                          </div>
                           <table class="table">
                             <tr class="text-center">
                               <th>{{loan_status.productDetails.productName | titlecase}} :-</th>
@@ -128,11 +141,23 @@
                               <th>Repayment :-</th>
                               <th>{{loan_status.repaymentAmount | currency:'NGN':'symbol-narrow':'4.2-2'}}</th>
                             </tr>
+                            <tr class="text-center">
+                              <th>Loan Amount :-</th>
+                              <th>{{loan_status.total_loanAmount | currency:'NGN':'symbol-narrow':'4.2-2'}}</th>
+                            </tr>
                           </table>
 
                         </div>
                         <div class="col-lg-3">
+                            <div class="row">
+                          <label *ngIf="loan_status.offerLetter">Delivery Date:  {{loan_status.DeliveryDate}}</label>
+                          <a *ngIf="loan_status.offerLetter" href="https://retailboosters.ng:4000/upload/N1580194053567_1580536948847-OfferLetter.pdf">
+                            <button class="btn_three mt_0 mb_20 float-right">Offer Latter</button>
+                          </a>
+                        </div>
                           <!-- <button type="submit" class="btn_three mt_0 mb_20 float-right" (click)="goBack()">Back</button> -->
+                         
+                  
                         </div>
                       </div>
 
