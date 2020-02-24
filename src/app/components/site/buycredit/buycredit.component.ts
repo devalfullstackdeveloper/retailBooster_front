@@ -318,7 +318,7 @@ export class BuycreditComponent implements OnInit {
         "phoneNumber": this.user.mobileNo,
         "customerid": this.user.email,
         "narration": "payment tst",
-        "extendedData": "null",
+        //"extendedData": "null",
         "returnUrl": ""
         }
 
