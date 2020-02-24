@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../../../services/api.service';
+import { IfStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-signup',
@@ -72,7 +73,9 @@ export class SignupComponent implements OnInit {
   bvnVerify() {
  	 if(this.form.bvn=="") {
   		alert('Please Enter BVN.')
-  	}
+  	}else if(this.form.bvn.length > 12){
+		alert("Please enter 11 digit number")
+	  }
   	else
   	{
   			let data = { "bvn" : this.form.bvn};

@@ -33,14 +33,18 @@ export class LoginComponent implements OnInit {
 	      .subscribe(
 	        data => {
 	          if(data.status) {
-	          	let data_str = JSON.stringify(data.data);
-	          	localStorage.setItem("user", data_str);
-              localStorage.setItem("token", data.token);
-	          	this.router.navigate(['apply']);
-	          	setTimeout(() => {
-                  location.reload();      
-               }, 1000);
-              
+
+				if(data.data && data.data.roles.indexOf('User') > -1){
+					let data_str = JSON.stringify(data.data);
+					localStorage.setItem("user", data_str);
+					localStorage.setItem("token", data.token);
+					this.router.navigate(['apply']);
+					setTimeout(() => {
+						location.reload();      
+					}, 1000);
+				}else{
+					this.error = "You are not Customer"
+				}              
 	          }
 	          else
 	          {
