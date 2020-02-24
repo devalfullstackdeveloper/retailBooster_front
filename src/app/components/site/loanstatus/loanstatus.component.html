@@ -150,11 +150,19 @@
                         </div>
                         <div class="col-lg-3">
                             <div class="row">
-                          <label *ngIf="loan_status.offerLetter">Delivery Date:  {{loan_status.DeliveryDate}}</label>
-                          <a *ngIf="loan_status.offerLetter" href="https://retailboosters.ng:4000/upload/N1580194053567_1580536948847-OfferLetter.pdf">
-                            <button class="btn_three mt_0 mb_20 float-right">Offer Latter</button>
-                          </a>
-                        </div>
+                              <div class="col-lg-12" *ngIf="loan_status.offerLetter"> 
+                                <label>Delivery Date:- <span>&nbsp; &nbsp;</span></label>
+                                <label style="margin-left: 10px;">{{loan_status.DeliveryDate | date: 'mediumDate'}}</label>
+                              </div>
+
+                              <div class="col-lg-12">
+                                <a *ngIf="loan_status.offerLetter" class="btn_three mt_0 mb_20 float-right" href="https://retailboosters.ng:4000/upload/N1580194053567_1580536948847-OfferLetter.pdf">
+                                  <!-- <button class="btn_three mt_0 mb_20 float-right">Offer Latter</button> -->
+                                  Offer Latter
+                                </a>
+                              </div>
+                              
+                            </div>
                           <!-- <button type="submit" class="btn_three mt_0 mb_20 float-right" (click)="goBack()">Back</button> -->
                          
                   
