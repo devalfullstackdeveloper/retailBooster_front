@@ -270,6 +270,16 @@ export class ApiService {
             }));
     }
 
+    salaryHistory(id){
+        var data = {
+            orderId: id
+        }
+        return this.http.post<any>(this.actionUrl+`api/admin/salaryHistory`,data)
+            .pipe(map(res => {
+                return res;
+            }))
+    }
+
      bvnVerify(data) {
         return this.http.post<any>(this.actionUrl+`api/loanapp/bvnVerify`,data,this.getHttpOptions() )
             .pipe(map(res => {

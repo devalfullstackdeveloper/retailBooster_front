@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ApiService } from '../../../services/api.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-buycredit',
@@ -15,6 +16,7 @@ export class BuycreditComponent implements OnInit {
   product_list = <any>[];
   store_product_list = <any>[];
   top_product_list = <any>[];
+  salary_data = <any>[];
   product = <any>[];
   store_id = "";
   user = <any>{};
@@ -154,7 +156,35 @@ export class BuycreditComponent implements OnInit {
           this.document_list = data.documentList;
           this.orderId = data.data._id;
           localStorage.setItem('orderId',data.data._id);
+
+          if(data.data._id){
+            this.apiService.salaryHistory(data.data._id)
+              .subscribe(
+                salData => {
+                  if(salData.status){
+                    
+                    // this.salary_data = salData.userdata.salaryPaymentDetails;
+                    var salary_history_data = [];
+                    for(var i = 0; i < salData.userdata.salaryPaymentDetails.length; i++){
+                      var spl = salData.userdata.salaryPaymentDetails[i].paymentDate.split(" ",1);
+                      var dd = {
+                        paymentDate: spl,
+                        amount: salData.userdata.salaryPaymentDetails[i].amount,
+                        accountNumber: salData.userdata.salaryPaymentDetails[i].accountNumber,
+                        bankCode: salData.userdata.salaryPaymentDetails[i].bankCode,
+                      } 
+                      salary_history_data.push(dd);
+                    }
+                    this.salary_data = salary_history_data;
+                    console.log("Salary data---",this.salary_data);
+                  }else{
+                    alert("Salary History Not Found");
+                  }
+                }
+              )
+          }         
           this.display_block = "salary_history";
+          console.log("add Product Response----",this.add_pro_response);
         }
         else
         {
